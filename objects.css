@@ -1,0 +1,581 @@
+/* === ПЕРЕМЕННЫЕ === */
+:root {
+  --bg-color: #f7f9fc;
+  --text-color: #1e2a3a;
+  --sidebar-bg: #1e2a3a;
+  --sidebar-text: white;
+  --sidebar-active-bg: #2c3e50;
+  --accent: #1e88e5;
+  --accent-hover: #1565c0;
+  --card-bg: white;
+  --card-shadow: rgba(0, 0, 0, 0.05);
+  --border-color: #ccc;
+  --input-bg: white;
+  --chat-bg: white;
+  --modal-bg: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] {
+   --bg-color: linear-gradient(135deg, #1e003e, #b71c8d); 
+  --text-color: #f7f9fc;
+  --sidebar-bg: #1c1c1c;
+  --sidebar-text: #fff;
+  --sidebar-active-bg: #333;
+  --accent: #b084f7;
+  --accent-hover: #a64ac9;
+  --card-bg: rgba(30, 30, 30, 0.8);
+  --card-shadow: rgba(255, 255, 255, 0.05);
+  --border-color: #555;
+  --input-bg: #2a2a2a;
+  --chat-bg: #2a0035;
+  --modal-bg: rgba(255, 255, 255, 0.15);
+}
+
+/* === ОБЩИЕ СТИЛИ === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+html, body {
+  height: 100%;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+body {
+  font-size: 14px;
+  min-height: 100vh;
+}
+.app-container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* === САЙДБАР === */
+.sidebar {
+  width: 220px;
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+.sidebar ul {
+  list-style: none;
+}
+.sidebar li {
+  font-size: 14px;
+  margin-bottom: 10px;
+  padding: 6px 14px;
+  cursor: pointer;
+  opacity: 0.85;
+  border-radius: 4px;
+}
+.sidebar li.active {
+  background-color: var(--sidebar-active-bg);
+  font-weight: bold;
+  opacity: 1;
+  position: relative;
+}
+.sidebar li.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 4px; height: 100%;
+  background-color: var(--accent);
+  border-radius: 4px 0 0 4px;
+}
+
+/* === ОСНОВНАЯ ОБЛАСТЬ === */
+.main {
+  flex: 1;
+  padding: 30px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.header h1 {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* === ФИЛЬТРЫ === */
+.filters {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Общий стиль */
+.filters input,
+.filters select {
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid black;
+  border-radius: 6px;
+  background-color: white;
+  color: black;
+  transition: border 0.2s ease;
+}
+
+/* Placeholder */
+.filters input::placeholder {
+  color: #555 !important;
+  opacity: 1;
+}
+
+/* Hover */
+.filters input:hover,
+.filters select:hover {
+  border: 2px solid black;
+  background-color: white !important;
+}
+
+/* SELECT — стиль и стрелка */
+.filters select {
+  color: #555;
+  background-image: url("data:image/svg+xml,%3Csvg width='8' height='5' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 6L0.5 0.5H9.5L5 6Z' fill='%23555'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 8px;
+  padding-right: 28px;
+  appearance: none;
+}
+
+/* Удалить стрелки у текстовых инпутов */
+.filters input[type="text"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  background-image: none !important;
+  padding-right: 12px;
+}
+
+/* Индивидуальные ширины */
+#districtFilter { width: 90px; }
+#typeFilter { width: 150px; }
+#dateStartFilter { width: 150px; }
+#dateEndFilter { width: 140px; }
+#fioFilter { width: 150px; }
+#violationFilter { width: 120px; }
+#searchInput {
+  flex: 1;
+  min-width: 260px;
+}
+
+/* === КАРТОЧКИ ОБЪЕКТОВ === */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+}
+.object-card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px var(--card-shadow);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid var(--border-color);
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-header h3 {
+  font-size: 16px;
+  line-height: 1.3;
+  max-height: 2.6em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+.status {
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+.status-complete {
+  background: #e5e7eb;
+  color: #374151;
+}
+.progress {
+  background: #e5e7eb;
+  height: 6px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.bar {
+  background-color: var(--accent);
+  height: 100%;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-color);
+}
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.actions button {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-color);
+  cursor: pointer;
+}
+.actions button:hover {
+  background-color: var(--accent-hover);
+  color: white;
+}
+
+/* === МОДАЛ ЧАТ === */
+.chat-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--modal-bg);
+  justify-content: center;
+  align-items: center;
+}
+.chat-box {
+  width: 600px;
+  height: 800px;
+  background: var(--chat-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 20px var(--card-shadow);
+}
+.chat-box-header {
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.chat-close {
+  cursor: pointer;
+  font-size: 20px;
+}
+.chat-box-body {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+.chat-box-input {
+  border-top: 1px solid var(--border-color);
+  padding: 10px;
+  background: var(--input-bg);
+}
+.chat-box-input input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  font-size: 14px;
+  background: var(--input-bg);
+  color: var(--text-color);
+}
+
+/* === GANT МОДАЛ === */
+#gantModal .chat-box-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+#gantModal .chat-box-body {
+  background: var(--card-bg);
+  text-align: center;
+  padding: 20px;
+}
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.doc-table th {
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  text-align: left;
+  padding: 12px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.doc-table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.doc-table input[type="file"] {
+  margin-bottom: 6px;
+}
+
+.doc-table input[type="text"] {
+  width: 95%;
+  padding: 6px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.doc-table button {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.doc-table button:hover {
+  background: var(--accent-hover);
+  color: #fff;
+}
+
+.btn-accent {
+  padding: 8px 16px;
+  font-size: 14px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.btn-accent:hover {
+  background: var(--accent-hover);
+}
+/* --- Разделительная линия под заголовком модалки --- */
+.chat-box-header {
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--border-color); /* 👈 добавили линию */
+}
+
+/* --- Таблица документов --- */
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.doc-table th {
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  text-align: left;
+  padding: 12px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.doc-table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+/* --- Уменьшенная кнопка удалить --- */
+.doc-table button {
+  padding: 3px 8px;   /* 👈 уменьшили */
+  font-size: 12px;    /* 👈 меньше шрифт */
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: #f8f8f8;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.doc-table button:hover {
+  background: var(--accent-hover);
+  color: #fff;
+}
+/* --- Заголовок модалки без лишней линии --- */
+.chat-box-header {
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border-bottom убираем */
+  border-bottom: none;
+}
+
+/* --- Шапка таблицы (фон как у кнопки сохранить) --- */
+.doc-table th {
+  background: var(--accent);     /* 👈 голубой фон */
+  color: #fff;                   /* белый текст */
+  text-align: left;
+  padding: 12px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+}
+
+/* --- Ячейки таблицы --- */
+.doc-table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+/* --- Красная кнопка Удалить --- */
+.doc-table button {
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  border: none;
+  background: #dc3545;      /* красный */
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.doc-table button:hover {
+  background: #b02a37;      /* тёмно-красный при наведении */
+}
+/* --- Кнопка Удалить: серая по умолчанию, красная при hover --- */
+.doc-table button {
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: #f1f1f1;   /* светло-серая */
+  color: #333;           /* тёмный текст */
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.doc-table button:hover {
+  background: #dc3545;   /* красный фон */
+  color: #fff;           /* белый текст */
+  border-color: #dc3545; /* красная рамка */
+}
+/* Контейнер с выбором чата */
+.chat-select {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* чтобы они выравнивались слева */
+  gap: 12px;               /* 👈 расстояние между кнопками */
+  padding: 20px;
+}
+
+
+/* Кнопки чатов */
+.chat-option {
+  padding: 12px 16px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: none;
+  background: var(--accent);   /* голубой фон */
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+  text-align: left; /* текст прижат влево */
+}
+
+.chat-option:hover {
+  background: var(--accent-hover);
+  transform: translateX(4px); /* чуть уезжает вправо при наведении */
+}
+
+/* Тело сообщений */
+#chatBody {
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Кнопка Назад */
+#chatBackBtn {
+  margin: 0 20px 20px 20px;
+  align-self: flex-start;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  background: #f1f1f1;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+#chatBackBtn:hover {
+  background: #ddd;
+  transform: translateX(-4px); /* уезжает влево при наведении */
+}
+.chat-select {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;         /* ✅ Рабочий отступ между кнопками */
+  padding: 20px;
+}
+
+.chat-option {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease, transform 0.1s ease;
+  margin-bottom: 16px;  
+}
+
+.chat-option:hover {
+  background: var(--accent-hover);
+  transform: translateX(4px);
+}
+
+.sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar li i {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  opacity: 0.9;
+}

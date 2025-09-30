@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Аналитика по объектам</title>
+
+  <!-- Шрифт -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Иконки -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Стили -->
+  <link rel="stylesheet" href="dashboard.css" />
+
+  <!-- Графики -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/gantt.js"></script>
+
+  <!-- Leaflet карта -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- JS -->
+  <script defer src="dashboard.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Intellectual Journal</h2>
+      <ul>
+        <li class="active"><i class="fas fa-tachometer-alt"></i> Дашборд</li>
+        <li><i class="fas fa-building"></i> Объекты</li>
+        <li><i class="fas fa-camera"></i> Фотографии</li>
+        <li><i class="fas fa-book"></i> Журналы</li>
+      </ul>
+    </aside>
+
+    <main class="main">
+      <!-- Header -->
+      <header class="header">
+        <h1>Аналитика по объектам</h1>
+        <button id="themeToggle" class="theme-toggle" title="Переключить тему">🌗</button>
+      </header>
+
+      <!-- Фильтры -->
+      <div class="filters">
+        <select id="districtFilter" class="filter-okrug">
+          <option value="">Округ</option>
+          <option value="САО">САО</option>
+          <option value="СВАО">СВАО</option>
+        </select>
+        <select id="filter-area" style="width:120px; font-size: 13px;">
+  <option value="">Район</option>
+</select>
+
+        <select id="typeFilter" class="filter-type">
+          <option value="">Тип объекта</option>
+          <option value="Дворовая территория">Дворовая территория</option>
+        </select>
+        <select id="filter-customer"><option>Заказчик</option></select>
+  <select id="filter-contractor"><option>Подрядчик</option></select>
+  <select id="filter-status-object"><option>Статус объекта</option></select>
+  <select id="filter-status-check"><option>Статус проверки</option></select>
+  <select id="filter-year"><option>Год проведения</option></select>
+        <input type="text" id="dateStartFilter" placeholder="Начало периода" class="filter-date-start" />
+        <input type="text" id="dateEndFilter" placeholder="Конец периода" class="filter-date-end" />
+      </div>
+
+      <!-- Далее будут секции: графики, карта, рейтинги и т.д. -->
+    <section class="dashboard-body">
+  <!-- 📌 KPI карточки -->
+  <div class="kpi-cards">
+    <div class="kpi-card">
+      <h3>Объектов всего</h3>
+      <p id="total-objects">-</p>
+    </div>
+    <div class="kpi-card">
+      <h3>% Выполнения</h3>
+      <p id="avg-progress">-</p>
+    </div>
+  </div>
+
+  <!-- 🔵 Статусы объектов -->
+<div class="chart-section triple-charts">
+  <div class="chart-card">
+    <h3>Статусы объектов</h3>
+    <div id="pie-status-object" style="height: 300px;"></div>
+  </div>
+  <div class="chart-card">
+    <h3>Статусы проверок</h3>
+    <div id="pie-status-check" style="height: 300px;"></div>
+  </div>
+  <div class="chart-card">
+    <h3>Объекты по округам</h3>
+    <div id="pie-by-district" style="height: 300px;"></div>
+  </div>
+</div>
+
+
+  <!-- 🟪 Диаграмма Ганта -->
+  <div class="chart-section">
+    <h3>График Ганта объектов</h3>
+    <div id="gantt-chart" style="height: 400px;"></div>
+  </div>
+
+  <!-- 🗺️ Карта объектов -->
+  <div class="chart-section">
+    <h3>Карта объектов</h3>
+    <div id="map" style="height: 400px;"></div>
+  </div>
+
+
+<!-- 📊 Метрики -->
+<div class="kpi-container">
+  <div class="kpi-card">
+    <div class="kpi-title">Средний % готовности</div>
+    <div class="kpi-value" id="metric-ready">-</div>
+  </div>
+
+  <div class="kpi-card">
+    <div class="kpi-title">Проверок</div>
+    <div class="kpi-value" id="metric-checks">-</div>
+  </div>
+
+  <div class="kpi-card">
+    <div class="kpi-title">Нарушений</div>
+    <div class="kpi-value" id="metric-violations">-</div>
+  </div>
+
+  <div class="kpi-card">
+    <div class="kpi-title">Фотофиксаций</div>
+    <div class="kpi-value" id="metric-photos">-</div>
+  </div>
+</div>
+
+
+
+
+  <!-- 📈 Динамика по годам -->
+  <div class="chart-section">
+    <h3>Динамика активных объектов по годам</h3>
+    <div id="year-dynamics" style="height: 300px;"></div>
+  </div>
+
+  <!-- 🏆 Рейтинг -->
+  <div class="rating-section">
+    <div class="rating-block">
+      <h4>Топ-5 объектов с нарушениями</h4>
+      <ul id="top-objects"></ul>
+    </div>
+    <div class="rating-block">
+      <h4>Топ-5 видов работ с нарушениями</h4>
+      <ul id="top-contractors"></ul>
+    </div>
+  </div>
+</section>
+
+
+    </main>
+  </div>
+</body>
+</html>

@@ -648,22 +648,3 @@ body {
   .filters select {
 
     
-    
-  /* Ссылки в sidebar */
-.sidebar a,
-.sidebar a:link,
-.sidebar a:visited {
-  color: var(--sidebar-text) !important;
-  text-decoration: none;
-}
-
-/* При наведении */
-.sidebar a:hover {
-  color: var(--accent) !important;
-}
-
-/* Активный пункт */
-.sidebar li.active a {
-  color: var(--sidebar-text) !important;
-  font-weight: bold;
-}

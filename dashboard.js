@@ -8,28 +8,23 @@ const objectsData = [
   { title: 'Дворовая территория по адресу: Мира просп. 194', statusObject: 'Завершён', statusCheck: 'Проверено', percent: 100, fio: 'Фёдоров М.Г.', dates: '15.04.2024-20.08.2024', district: 'СВАО', violations: 0, checks: 1, documents: '0%', photos: 3, geometry: { "type": "Polygon", "coordinates": [ [ [ 37.659716442170797, 55.836805799266003 ], [ 37.6596903157171, 55.836817724735802 ], [ 37.659648945617697, 55.836833217643502 ], [ 37.659558811645198, 55.8368710569844 ], [ 37.659504640327597, 55.836894182812202 ], [ 37.659489939733596, 55.8369096053232 ], [ 37.659445119587403, 55.836928425826699 ], [ 37.659438602854998, 55.836923314687603 ], [ 37.659436745486701, 55.8369218530731 ], [ 37.659416828976397, 55.8369302227199 ], [ 37.659410694684702, 55.836932799384897 ], [ 37.659364282436798, 55.836948684910098 ], [ 37.659285507488903, 55.836981542548102 ], [ 37.659217055076702, 55.837009545727 ], [ 37.659192326313502, 55.837019861573502 ], [ 37.659184789775701, 55.837023005877398 ], [ 37.659157607250897, 55.8370343487857 ], [ 37.659151313503898, 55.837036970551303 ], [ 37.659118458643199, 55.8370506829297 ], [ 37.659125406944199, 55.837055955199901 ], [ 37.6591492137442, 55.837074031572499 ], [ 37.659153744538699, 55.837077465713797 ], [ 37.659243816697, 55.837145843829298 ], [ 37.659275036227903, 55.837169542126702 ], [ 37.6592782540447, 55.837171936082903 ], [ 37.659332444755897, 55.837212265738401 ], [ 37.659403401405598, 55.837266118089403 ], [ 37.659465608663297, 55.837311359295903 ], [ 37.6594674497249, 55.837312731114302 ], [ 37.659528462065197, 55.837358458839802 ], [ 37.659623334771403, 55.8374295429401 ], [ 37.659635133848703, 55.8374383836167 ], [ 37.659639296425702, 55.8374415218208 ], [ 37.659647877537502, 55.837447941604601 ], [ 37.659662132533199, 55.837452369113301 ], [ 37.659700902219498, 55.837464390377399 ], [ 37.659735459254399, 55.837449265524697 ], [ 37.659792683638301, 55.8374153756263 ], [ 37.659793409551099, 55.837409437812802 ], [ 37.659794501519102, 55.837407155060298 ], [ 37.659800041541601, 55.837403654033999 ], [ 37.659803080664197, 55.837401359782604 ], [ 37.659807589957097, 55.837399503731703 ], [ 37.6598321598889, 55.837389358619099 ], [ 37.659905359859799, 55.837359166415901 ], [ 37.6599731421936, 55.837331199649697 ], [ 37.659981818754602, 55.837329724410402 ], [ 37.659991577630798, 55.837331418294497 ], [ 37.659939871586403, 55.837290025879 ], [ 37.660019174984001, 55.837241961194202 ], [ 37.660016184627899, 55.837236656905901 ], [ 37.660014453611602, 55.837230973757798 ], [ 37.660014006853501, 55.837227103241901 ], [ 37.6600140227563, 55.8372192801979 ], [ 37.660032058491304, 55.837203727564102 ], [ 37.660056786215598, 55.837189279988102 ], [ 37.660116263951402, 55.837160165261103 ], [ 37.6601251068859, 55.837156453363498 ], [ 37.660129601203401, 55.837154848806399 ], [ 37.660187171789403, 55.8371199433466 ], [ 37.660244761378898, 55.837105300453899 ], [ 37.660246711279697, 55.837102064529397 ], [ 37.6602429895499, 55.837101350821598 ], [ 37.6602015703427, 55.837081465229801 ], [ 37.6601622484758, 55.837059259638799 ], [ 37.660088554777801, 55.837007566865701 ], [ 37.6600306275854, 55.8369669370026 ], [ 37.659803264893199, 55.836809216843903 ], [ 37.659791724743798, 55.836801211142102 ], [ 37.659765827448801, 55.836783245374903 ], [ 37.659716442170797, 55.836805799266003 ] ], [ [ 37.659775003857398, 55.837189716384898 ], [ 37.659703879556602, 55.837220049536299 ], [ 37.659691391919701, 55.837210643911199 ], [ 37.6596888426348, 55.837211725003399 ], [ 37.659601114057402, 55.8372486271724 ], [ 37.659594963803897, 55.837251212848699 ], [ 37.659555624550798, 55.837267771918803 ], [ 37.659447702149798, 55.837186294857702 ], [ 37.659432684962198, 55.837174961412899 ], [ 37.659428335062799, 55.837176763354698 ], [ 37.659419513213003, 55.837169993581199 ], [ 37.659425185638199, 55.837167651034598 ], [ 37.659449277550401, 55.837157713192703 ], [ 37.659462470736003, 55.837152271252897 ], [ 37.6594578113437, 55.837148621729099 ], [ 37.659473697346101, 55.837142071570703 ], [ 37.6594783567391, 55.837145721093897 ], [ 37.659502910672899, 55.837135585048898 ], [ 37.659566533747501, 55.837183617673702 ], [ 37.659696963611403, 55.837128840761302 ], [ 37.659750547169303, 55.837106344325399 ], [ 37.659692495414703, 55.837062516994898 ], [ 37.659700955976199, 55.837058967291497 ], [ 37.659726496962797, 55.837048246118698 ], [ 37.659715754377203, 55.837040140581202 ], [ 37.659702706384401, 55.837030295579801 ], [ 37.659707295111602, 55.8370283585949 ], [ 37.659763474979499, 55.837004610348004 ], [ 37.659763968909601, 55.837004403131502 ], [ 37.659787919654697, 55.837022488176402 ], [ 37.659792466423198, 55.837025913292003 ], [ 37.659778397408701, 55.8370318234455 ], [ 37.659868004731997, 55.837099474191803 ], [ 37.6598993681759, 55.837123154181803 ], [ 37.659855073907998, 55.837141785538897 ], [ 37.659827302351303, 55.8371534706597 ], [ 37.659771201487203, 55.837177066144697 ], [ 37.659765274373299, 55.837179570706198 ], [ 37.659762709095403, 55.837180642838902 ], [ 37.659775003857398, 55.837189716384898 ] ] ] } }
 ];
 
-// =======================
-// 🌗 Переключение темы
-// =======================
-document.addEventListener('DOMContentLoaded', () => {
-  const themeToggle = document.querySelector('#dashboard .theme-toggle, #objects .theme-toggle');
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const html = document.documentElement;
-      const cur = html.getAttribute('data-theme');
-      const nxt = cur === 'light' ? 'dark' : 'light';
-      html.setAttribute('data-theme', nxt);
-      localStorage.setItem('theme', nxt);
-    });
-  }
-
+// Тема: переключатель
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', () => {
+  const html = document.documentElement;
+  const cur = html.getAttribute('data-theme');
+  const nxt = cur === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', nxt);
+  localStorage.setItem('theme', nxt);
+});
+window.addEventListener('DOMContentLoaded', () => {
   const saved = localStorage.getItem('theme');
   if (saved) document.documentElement.setAttribute('data-theme', saved);
 });
 
-// =======================
-// 🛠 Универсальные утилиты
-// =======================
+// ─────────────────────────────
+// Универсальные утилиты
+
 function parseRangeToTimestamps(rangeStr) {
   const [start, end] = rangeStr.split('-');
   const parse = ds => {
@@ -43,25 +38,22 @@ function getUnique(data, keyOrFn) {
   return [...new Set(data.map(typeof keyOrFn === 'function' ? keyOrFn : o => o[keyOrFn]))].filter(Boolean);
 }
 
-// =======================
-// 🎛 Фильтрация
-// =======================
-function applyDashboardFilters(data) {
-  const dash = document.getElementById('dashboard');
-  if (!dash) return data;
+// ─────────────────────────────
+// Фильтрация и ререндер
 
-  const get = sel => dash.querySelector(sel)?.value || '';
-  const startDate = dash.querySelector('#dashboardDateStart')?.value;
-  const endDate = dash.querySelector('#dashboardDateEnd')?.value;
+function applyFilters(data) {
+  const get = id => document.getElementById(id)?.value || '';
+  const startDate = document.getElementById('dateStartFilter')?.value;
+  const endDate = document.getElementById('dateEndFilter')?.value;
 
   return data.filter(o => {
-    if (get('#dashboardDistrictFilter') && o.district !== get('#dashboardDistrictFilter')) return false;
-    if (get('#dashboardFilterArea') && o.area !== get('#dashboardFilterArea')) return false;
-    if (get('#dashboardFilterCustomer') && o.customer !== get('#dashboardFilterCustomer')) return false;
-    if (get('#dashboardFilterContractor') && o.contractor !== get('#dashboardFilterContractor')) return false;
-    if (get('#dashboardStatusObject') && o.statusObject !== get('#dashboardStatusObject')) return false;
-    if (get('#dashboardStatusCheck') && o.statusCheck !== get('#dashboardStatusCheck')) return false;
-    if (get('#dashboardYear') && !o.dates.includes(get('#dashboardYear'))) return false;
+    if (get('districtFilter') && o.district !== get('districtFilter')) return false;
+    if (get('filter-area') && o.area !== get('filter-area')) return false;
+    if (get('filter-customer') && o.customer !== get('filter-customer')) return false;
+    if (get('filter-contractor') && o.contractor !== get('filter-contractor')) return false;
+    if (get('filter-status-object') && o.statusObject !== get('filter-status-object')) return false;
+    if (get('filter-status-check') && o.statusCheck !== get('filter-status-check')) return false;
+    if (get('filter-year') && !o.dates.includes(get('filter-year'))) return false;
 
     if (startDate || endDate) {
       const { start, end } = parseRangeToTimestamps(o.dates);
@@ -74,21 +66,18 @@ function applyDashboardFilters(data) {
   });
 }
 
-function setupDashboardFilterListeners() {
-  const dash = document.getElementById('dashboard');
-  if (!dash) return;
-
+function setupFilterListeners() {
   const ids = [
-    '#dashboardDistrictFilter', '#dashboardFilterArea', '#dashboardFilterCustomer',
-    '#dashboardFilterContractor', '#dashboardStatusObject', '#dashboardStatusCheck',
-    '#dashboardYear', '#dashboardDateStart', '#dashboardDateEnd'
+    'districtFilter', 'filter-area', 'filter-customer', 'filter-contractor',
+    'filter-status-object', 'filter-status-check', 'filter-year',
+    'dateStartFilter', 'dateEndFilter'
   ];
 
-  ids.forEach(sel => {
-    const el = dash.querySelector(sel);
+  ids.forEach(id => {
+    const el = document.getElementById(id);
     if (el) {
       el.addEventListener('change', () => {
-        const filtered = applyDashboardFilters(objectsData);
+        const filtered = applyFilters(objectsData);
         renderTriplePieCharts(filtered);
         renderKpi(filtered);
         renderGantt(filtered);
@@ -100,12 +89,9 @@ function setupDashboardFilterListeners() {
   });
 }
 
-function fillDashboardFilters(data) {
-  const dash = document.getElementById('dashboard');
-  if (!dash) return;
-
-  const fill = (sel, values, placeholder = 'Все') => {
-    const el = dash.querySelector(sel);
+function fillFilters(data) {
+  const fill = (id, values, placeholder = 'Все') => {
+    const el = document.getElementById(id);
     if (!el) return;
     el.innerHTML = `<option value="">${placeholder}</option>`;
     values.forEach(val => {
@@ -116,11 +102,353 @@ function fillDashboardFilters(data) {
     });
   };
 
-  fill('#dashboardFilterArea', getUnique(data, 'area'), 'Район');
-  fill('#dashboardFilterCustomer', getUnique(data, 'customer'), 'Заказчик');
-  fill('#dashboardFilterContractor', getUnique(data, 'contractor'), 'Подрядчик');
-  fill('#dashboardStatusObject', getUnique(data, 'statusObject'), 'Статус объекта');
-  fill('#dashboardStatusCheck', getUnique(data, 'statusCheck'), 'Статус проверки');
-  fill('#dashboardYear', getUnique(data, o => (o.dates?.split('.')?.[2])), 'Год проведения');
+  fill('filter-area', getUnique(data, 'area'), 'Район');
+  fill('filter-customer', getUnique(data, 'customer'), 'Заказчик');
+  fill('filter-contractor', getUnique(data, 'contractor'), 'Подрядчик');
+  fill('filter-status-object', getUnique(data, 'statusObject'), 'Статус объекта');
+  fill('filter-status-check', getUnique(data, 'statusCheck'), 'Статус проверки');
+  fill('filter-year', getUnique(data, o => (o.dates?.split('.')?.[2])), 'Год проведения');
 }
 
+// ─────────────────────────────
+// Основные функции отрисовки
+
+
+
+
+function renderTriplePieCharts(data) {
+  const pie = (id, mapKey, title) => {
+    const counts = data.reduce((acc, o) => {
+      const key = o[mapKey];
+      acc[key] = (acc[key] || 0) + 1;
+      return acc;
+    }, {});
+    Highcharts.chart(id, {
+      chart: { type: 'pie', backgroundColor: 'transparent' },
+      title: { text: title },
+      credits: { enabled: false },
+      series: [{
+        name: 'Количество',
+        colorByPoint: true,
+        data: Object.entries(counts).map(([name, y]) => ({ name, y }))
+      }]
+    });
+  };
+
+  pie('pie-status-object', 'statusObject', 'Статусы объектов');
+  pie('pie-status-check', 'statusCheck', 'Статусы проверок');
+  pie('pie-by-district', 'district', 'Объекты по округам');
+}
+
+function renderKpi(data) {
+  const total = data.length;
+  const avgPercent = (data.reduce((s, o) => s + (o.percent || 0), 0) / total).toFixed(1);
+  const totalChecks = data.reduce((s, o) => s + (o.checks || 0), 0);
+  const totalViolations = data.reduce((s, o) => s + (o.violations || 0), 0);
+  const totalPhotos = data.reduce((s, o) => s + (o.photos || 0), 0);
+
+  document.getElementById('total-objects').innerText = total;
+  document.getElementById('avg-progress').innerText = avgPercent + '%';
+  document.getElementById('metric-ready').innerText = avgPercent + '%';
+  document.getElementById('metric-checks').innerText = totalChecks;
+  document.getElementById('metric-violations').innerText = totalViolations;
+  document.getElementById('metric-photos').innerText = totalPhotos;
+}
+
+
+
+
+
+
+
+
+
+function renderGantt(data) {
+  const tasks = data.map((o, idx) => {
+    const { start, end } = parseRangeToTimestamps(o.dates);
+    return {
+      id: 'task-' + idx,
+      name: o.title,
+      start: start,
+      end: end,
+      y: idx,
+      color: '#42a5f5' // ← Голубой цвет для всех
+    };
+  });
+
+  Highcharts.ganttChart('gantt-chart', {
+    chart: {
+      height: Math.max(250, 60 + tasks.length * 50)
+    },
+    title: { text: 'График Ганта объектов' },
+    credits: { enabled: false },
+    xAxis: [{
+      type: 'datetime',
+      tickInterval: 30 * 24 * 3600 * 1000,
+      labels: {
+        format: '{value:%B}',
+        style: { fontSize: '12px' }
+      },
+      units: [['month', [1]]],
+      dateTimeLabelFormats: {
+        month: '%B',
+        year: '%Y'
+      }
+    }, {
+      type: 'datetime',
+      labels: {
+        format: '{value:%Y}',
+        style: { fontWeight: 'bold', fontSize: '13px' }
+      },
+      opposite: true,
+      linkedTo: 0,
+      tickInterval: 365 * 24 * 3600 * 1000,
+      dateTimeLabelFormats: { year: '%Y' }
+    }],
+    yAxis: {
+      type: 'category',
+      categories: data.map(o => o.title),
+      labels: {
+        align: 'left',
+        x: 5,
+        style: {
+          fontSize: '13px'
+        }
+      },
+      grid: {
+        enabled: true,
+        borderColor: '#ddd'
+      },
+      min: 0
+    },
+    series: [{
+      name: 'Объекты',
+      data: tasks
+    }],
+    navigator: { enabled: false },
+    scrollbar: { enabled: false },
+    lang: {
+      months: [
+        'Январь', 'Февраль', 'Март', 'Апрель',
+        'Май', 'Июнь', 'Июль', 'Август',
+        'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+      ]
+    }
+  });
+}
+
+
+
+
+
+
+
+let map;          // глобальная карта (создаётся один раз)
+let layersGroup;  // группа слоёв (обновляется при фильтрации)
+
+function renderMap(data) {
+  // создаём карту только один раз
+  if (!map) {
+    map = L.map('map', { attributionControl: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+  }
+
+  // очищаем старые слои
+  if (layersGroup) {
+    map.removeLayer(layersGroup);
+  }
+
+  const allLayers = [];
+
+  data.forEach(o => {
+    let layer;
+    if (o.geometry) {
+      // Полигон
+      layer = L.geoJSON(o.geometry, {
+  style: {
+    color: o.statusObject === 'Завершён' ? 'green' : 'orange',
+    weight: 2,
+    fillOpacity: 0.4
+  },
+  simplifyFactor: 0.5,  // коэффициент упрощения (0–1, чем больше → меньше точек)
+  tolerance: 5          // минимальное расстояние между точками в пикселях
+})
+.bindPopup(`
+        <strong>${o.title}</strong><br/>
+        Статус объекта: ${o.statusObject}<br/>
+        Статус проверки: ${o.statusCheck}<br/>
+        Готовность: ${o.percent}%<br/>
+        Нарушений: ${o.violations}<br/>
+        Проверок: ${o.checks}<br/>
+        Ответственный: ${o.fio}
+      `);
+    } else if (o.lat && o.lng) {
+      // Точка
+      layer = L.circleMarker([o.lat, o.lng], {
+        radius: 8,
+        color: o.statusObject === 'Завершён' ? 'green' : 'orange',
+        fillOpacity: 0.8
+      }).bindPopup(`
+        <strong>${o.title}</strong><br/>
+        Статус объекта: ${o.statusObject}<br/>
+        Статус проверки: ${o.statusCheck}<br/>
+        Готовность: ${o.percent}%<br/>
+        Нарушений: ${o.violations}<br/>
+        Проверок: ${o.checks}<br/>
+        Ответственный: ${o.fio}
+      `);
+    }
+
+    if (layer) {
+      allLayers.push(layer);
+    }
+  });
+
+  // добавляем все новые слои на карту
+  layersGroup = L.featureGroup(allLayers).addTo(map);
+
+  // автофокус на все объекты
+  if (allLayers.length > 0) {
+    map.fitBounds(layersGroup.getBounds(), {
+      padding: [20, 20],
+      maxZoom: 17
+    });
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function renderLineChart(data) {
+  const months = [];
+  const year = 2024;
+
+  const activeCounts = [];
+  const completedCounts = [];
+  const violationsCounts = [];
+  const checkedCounts = [];
+
+  for (let m = 0; m < 12; m++) {
+    const dt = Date.UTC(year, m, 1);
+    months.push(dt);
+
+    const active = data.filter(o => {
+      const { start, end } = parseRangeToTimestamps(o.dates);
+      return dt >= start && dt <= end && o.statusObject !== 'Завершён';
+    }).length;
+
+    const completed = data.filter(o => {
+      const { start, end } = parseRangeToTimestamps(o.dates);
+      return dt >= start && dt <= end && o.statusObject === 'Завершён';
+    }).length;
+
+    const violations = data.filter(o => {
+      const { start, end } = parseRangeToTimestamps(o.dates);
+      return dt >= start && dt <= end && (o.violations || 0) > 0;
+    }).length;
+
+    const checked = data.filter(o => {
+      const { start, end } = parseRangeToTimestamps(o.dates);
+      return dt >= start && dt <= end && o.statusCheck === 'Проверено';
+    }).length;
+
+    activeCounts.push([dt, active]);
+    completedCounts.push([dt, completed]);
+    violationsCounts.push([dt, violations]);
+    checkedCounts.push([dt, checked]);
+  }
+
+  Highcharts.chart('year-dynamics', {
+    chart: { type: 'line', backgroundColor: 'transparent' },
+    title: { text: `Динамика объектов по месяцам (${year})` },
+    credits: { enabled: false },
+    xAxis: { type: 'datetime', title: { text: 'Месяц' } },
+    yAxis: { title: { text: 'Количество' } },
+    tooltip: { shared: true },
+    legend: { layout: 'horizontal', align: 'center', verticalAlign: 'bottom' },
+    series: [
+      { name: 'Активные объекты', data: activeCounts, color: '#1e90ff' },
+      { name: 'Завершённые объекты', data: completedCounts, color: '#28a745' },
+      { name: 'Объекты с нарушениями', data: violationsCounts, color: '#dc3545' },
+      { name: 'Проверенные объекты', data: checkedCounts, color: '#ffc107' }
+    ]
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function renderRanking(data) {
+  // ТОП-5 объектов с нарушениями (оставляем как было)
+  const sorted = [...data].sort((a, b) => (b.violations || 0) - (a.violations || 0));
+  const top5 = sorted.slice(0, 5);
+  const ul1 = document.querySelector('#top-objects');
+  ul1.innerHTML = '';
+  top5.forEach(o => {
+    const li = document.createElement('li');
+    li.innerText = `${o.title} — нарушений: ${o.violations || 0}`;
+    ul1.appendChild(li);
+  });
+
+  // ТОП-5 видов работ с нарушениями (твой пример, хардкодом)
+  const works = [
+    "Устройство дорожного бортового камня в рамках благоустройства территории",
+    "Устройство покрытия асфальтобетонного проезда в рамках благоустройства территории",
+    "Ремонт газона в рамках благоустройства территории",
+    "Замена садового бортового камня в рамках благоустройства территории",
+    "Устройство дорожного бортового камня в рамках благоустройства территории"
+  ];
+
+  const ul2 = document.querySelector('#top-contractors');
+  ul2.innerHTML = '';
+  works.forEach(work => {
+    const li = document.createElement('li');
+    li.innerText = work;
+    ul2.appendChild(li);
+  });
+
+  // и поменяй заголовок в HTML:
+  // <h3>Топ-5 видов работ с нарушениями</h3>
+}
+
+
+// ─────────────────────────────
+// Инициализация
+
+function initDashboard() {
+  fillFilters(objectsData);
+  renderTriplePieCharts(objectsData);
+  renderKpi(objectsData);
+  renderGantt(objectsData);
+  renderMap(objectsData);
+  renderLineChart(objectsData);
+  renderRanking(objectsData);
+  setupFilterListeners();
+}
+
+document.addEventListener('DOMContentLoaded', initDashboard);
+
+
+document.addEventListener('DOMContentLoaded', initDashboard);

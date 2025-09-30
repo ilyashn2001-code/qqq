@@ -649,39 +649,21 @@ body {
 
     
     
-   /* сброс стандартного цвета ссылок */
-.sidebar a {
+  /* Ссылки в sidebar */
+.sidebar a,
+.sidebar a:link,
+.sidebar a:visited {
   color: var(--sidebar-text) !important;
   text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
 }
 
-/* при наведении */
+/* При наведении */
 .sidebar a:hover {
-  color: var(--accent);
+  color: var(--accent) !important;
 }
 
-/* активный пункт */
-.sidebar li.active {
-  background-color: var(--sidebar-active-bg);
-  font-weight: bold;
-  position: relative;
-}
-
-.sidebar li.active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 4px;
-  height: 100%;
-  background-color: var(--accent);
-  border-radius: 4px 0 0 4px;
-}
-
+/* Активный пункт */
 .sidebar li.active a {
   color: var(--sidebar-text) !important;
+  font-weight: bold;
 }

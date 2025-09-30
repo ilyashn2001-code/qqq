@@ -3,64 +3,166 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Строительные объекты</title>
+  <title>Intellectual Journal</title>
 
   <!-- Шрифт -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
+  <!-- Иконки -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <!-- Стили -->
+  <link rel="stylesheet" href="dashboard.css" />
   <link rel="stylesheet" href="objects.css" />
   <link rel="stylesheet" href="themes.css" />
 
   <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-    }
+    body { font-family: 'Montserrat', sans-serif; }
+    .btn, .filters button { border: none; transition: background-color 0.3s ease; }
+    .theme-toggle { background: none; border: none; font-size: 18px; cursor: pointer; margin-left: auto; }
+    .header { display: flex; justify-content: space-between; align-items: center; }
 
-    .btn, .filters button {
-      border: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .theme-toggle {
-      background: none;
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-      margin-left: auto;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    /* SPA табы */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .sidebar li { cursor: pointer; }
   </style>
-
-  <!-- Подключаем JS с defer -->
-  <script src="objects.js" defer></script>
 </head>
 <body>
   <div class="app-container">
-   
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Сайдбар -->
+    <aside class="sidebar">
+      <h2>Intellectual Journal</h2>
+      <ul>
+        <li data-target="dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Дашборд</li>
+        <li data-target="objects"><i class="fas fa-building"></i> Объекты</li>
+        <li data-target="photos"><i class="fas fa-camera"></i> Фотографии</li>
+        <li data-target="journals"><i class="fas fa-book"></i> Журналы</li>
+      </ul>
+    </aside>
 
-    
-<aside class="sidebar">
-  <h2>Intellectual Journal</h2>
-  <ul>
-    <li><i class="fas fa-tachometer-alt"></i> Дашборд</li>
-    <li class="active"><i class="fas fa-building"></i> Объекты</li>
-    <li><i class="fas fa-camera"></i> Фотографии</li>
-    <li><i class="fas fa-book"></i> Журналы</li>
-  </ul>
-</aside>
-
+    <!-- Основная область -->
     <main class="main">
-      <header class="header">
-        <h1>Строительные объекты</h1>
-        <button id="themeToggle" class="theme-toggle" title="Переключить тему">🌗</button>
-      </header>
+      <!-- 🔵 Контент Дашборда -->
+      <div id="dashboard" class="tab-content active">
+       <!-- Header -->
+<header class="header">
+  <h1>Аналитика по объектам</h1>
+  <button id="themeToggle" class="theme-toggle" title="Переключить тему">🌗</button>
+</header>
+
+<!-- Фильтры -->
+<div class="filters">
+  <select id="districtFilter" class="filter-okrug">
+    <option value="">Округ</option>
+    <option value="САО">САО</option>
+    <option value="СВАО">СВАО</option>
+  </select>
+  <select id="filter-area" style="width:120px; font-size: 13px;">
+    <option value="">Район</option>
+  </select>
+  <select id="typeFilter" class="filter-type">
+    <option value="">Тип объекта</option>
+    <option value="Дворовая территория">Дворовая территория</option>
+  </select>
+  <select id="filter-customer"><option>Заказчик</option></select>
+  <select id="filter-contractor"><option>Подрядчик</option></select>
+  <select id="filter-status-object"><option>Статус объекта</option></select>
+  <select id="filter-status-check"><option>Статус проверки</option></select>
+  <select id="filter-year"><option>Год проведения</option></select>
+  <input type="text" id="dateStartFilter" placeholder="Начало периода" class="filter-date-start" />
+  <input type="text" id="dateEndFilter" placeholder="Конец периода" class="filter-date-end" />
+</div>
+
+<section class="dashboard-body">
+  <!-- 📌 KPI карточки -->
+  <div class="kpi-cards">
+    <div class="kpi-card">
+      <h3>Объектов всего</h3>
+      <p id="total-objects">-</p>
+    </div>
+    <div class="kpi-card">
+      <h3>% Выполнения</h3>
+      <p id="avg-progress">-</p>
+    </div>
+  </div>
+
+  <!-- 🔵 Статусы объектов -->
+  <div class="chart-section triple-charts">
+    <div class="chart-card">
+      <h3>Статусы объектов</h3>
+      <div id="pie-status-object" style="height: 300px;"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Статусы проверок</h3>
+      <div id="pie-status-check" style="height: 300px;"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Объекты по округам</h3>
+      <div id="pie-by-district" style="height: 300px;"></div>
+    </div>
+  </div>
+
+  <!-- 🟪 Диаграмма Ганта -->
+  <div class="chart-section">
+    <h3>График Ганта объектов</h3>
+    <div id="gantt-chart" style="height: 400px;"></div>
+  </div>
+
+  <!-- 🗺️ Карта объектов -->
+  <div class="chart-section">
+    <h3>Карта объектов</h3>
+    <div id="map" style="height: 400px;"></div>
+  </div>
+
+  <!-- 📊 Метрики -->
+  <div class="kpi-container">
+    <div class="kpi-card">
+      <div class="kpi-title">Средний % готовности</div>
+      <div class="kpi-value" id="metric-ready">-</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Проверок</div>
+      <div class="kpi-value" id="metric-checks">-</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Нарушений</div>
+      <div class="kpi-value" id="metric-violations">-</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Фотофиксаций</div>
+      <div class="kpi-value" id="metric-photos">-</div>
+    </div>
+  </div>
+
+  <!-- 📈 Динамика по годам -->
+  <div class="chart-section">
+    <h3>Динамика активных объектов по годам</h3>
+    <div id="year-dynamics" style="height: 300px;"></div>
+  </div>
+
+  <!-- 🏆 Рейтинг -->
+  <div class="rating-section">
+    <div class="rating-block">
+      <h4>Топ-5 объектов с нарушениями</h4>
+      <ul id="top-objects"></ul>
+    </div>
+    <div class="rating-block">
+      <h4>Топ-5 видов работ с нарушениями</h4>
+      <ul id="top-contractors"></ul>
+    </div>
+  </div>
+</section>
+
+      </div>
+
+      <!-- 🟢 Контент Объектов -->
+      <div id="objects" class="tab-content">
+       <!-- 🔹 Контент вкладки "Объекты" -->
+<header class="header">
+  <h1>Строительные объекты</h1>
+  <button id="themeToggle" class="theme-toggle" title="Переключить тему">🌗</button>
+</header>
 
 <div class="filters">
   <input type="text" id="searchInput" placeholder="Поиск по названию или адресу" />
@@ -82,16 +184,11 @@
   <input type="text" id="violationFilter" placeholder="Нарушения" class="filter-violation" />
 </div>
 
+<div class="cards-container" id="objectList">
+  <!-- Карточки отрисовываются скриптом -->
+</div>
 
-
-
-
-      <div class="cards-container" id="objectList">
-        <!-- Карточки отрисовываются скриптом -->
-      </div>
-    </main>
-  </div>
-
+<!-- 🔹 Модалка чатов -->
 <div id="chatModal" class="chat-modal">
   <div class="chat-box">
     <div class="chat-box-header">
@@ -114,13 +211,11 @@
       <input type="text" placeholder="Введите сообщение..." />
     </div>
 
-<button id="chatBackBtn" style="display:none;">← Назад к списку</button>
+    <button id="chatBackBtn" style="display:none;">← Назад к списку</button>
   </div>
 </div>
 
-
-
-<!-- Модалка диаграммы Ганта -->
+<!-- 🔹 Модалка диаграммы Ганта -->
 <div id="gantModal" class="chat-modal">
   <div class="chat-box" style="width: 1300px; height: 700px;">
     <div class="chat-box-header">
@@ -128,12 +223,9 @@
       <span class="chat-close gant-close">&times;</span>
     </div>
 
-    <!-- Основной скролл по горизонтали -->
     <div class="chat-box-body" style="overflow-x: auto; width: 100%; padding: 20px; box-sizing: border-box;">
-      <!-- контейнер без фиксированной ширины -->
       <div id="gantChart" style="min-width: 1500px; min-height: 400px;"></div>
 
-      <!-- 👇 легенда -->
       <div id="gantLegend" style="margin-top: 10px; display: flex; justify-content: center; gap: 20px; font-size: 14px;">
         <div style="display:flex; align-items:center;">
           <span style="display:inline-block;width:20px;height:10px;background:#1e3a8a;margin-right:6px;"></span>
@@ -148,23 +240,17 @@
   </div>
 </div>
 
-
 <!-- Подключаем Highcharts Gantt -->
 <script src="https://code.highcharts.com/gantt/highcharts-gantt.js"></script>
 
-
-
-<!-- 📁 Модалка документов -->
+<!-- 🔹 Модалка документов -->
 <div id="documentModal" class="chat-modal">
   <div class="chat-box" style="width: 1100px; max-height: 70vh; display: flex; flex-direction: column;">
-    
-    <!-- Заголовок -->
     <div class="chat-box-header">
       <h3>Документы по объекту</h3>
       <span class="chat-close document-close">&times;</span>
     </div>
 
-    <!-- Таблица -->
     <div class="chat-box-body" style="flex: 1; overflow-y: auto; padding: 0;">
       <table class="doc-table">
         <thead>
@@ -179,21 +265,40 @@
       </table>
     </div>
 
-    <!-- Кнопка Сохранить -->
     <div style="padding: 12px 16px; display: flex; justify-content: flex-end; background: var(--input-bg);">
-      <button id="saveDocumentsBtn" class="btn-accent">
-        Сохранить
-      </button>
+      <button id="saveDocumentsBtn" class="btn-accent">Сохранить</button>
     </div>
   </div>
 </div>
 
+      </div>
 
-
-
-
-  
-
+      <!-- 🟣 Заглушки -->
+      <div id="photos" class="tab-content"><h2>Фотографии</h2></div>
+      <div id="journals" class="tab-content"><h2>Журналы</h2></div>
+    </main>
   </div>
+
+  <!-- Скрипт для переключения вкладок -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = document.querySelectorAll('.sidebar li');
+      const contents = document.querySelectorAll('.tab-content');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          contents.forEach(c => c.classList.remove('active'));
+
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.target).classList.add('active');
+        });
+      });
+    });
+  </script>
+
+  <!-- Подключаем JS -->
+  <script src="dashboard.js" defer></script>
+  <script src="objects.js" defer></script>
 </body>
 </html>

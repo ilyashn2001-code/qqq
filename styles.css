@@ -1,0 +1,525 @@
+  /* === ПЕРЕМЕННЫЕ === */
+:root {
+  --bg-color: #f4f7fb;
+  --text-color: #2b2b2b;
+  --sidebar-bg: #1e2a3a;
+  --sidebar-text: #ffffff;
+  --sidebar-active-bg: #2c3e50;
+  --accent: #2979ff;
+  --accent-hover: #1565c0;
+  --card-bg: #ffffff;
+  --border-color: #e0e0e0;
+  --input-bg: #ffffff;
+  --modal-bg: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] {
+ --bg-color: linear-gradient(135deg, #1e003e, #b71c8d); 
+  --text-color: #f4f7fb;
+  --sidebar-bg: #121212;
+  --sidebar-text: #ffffff;
+  --sidebar-active-bg: #333;
+  --accent: #82b1ff;
+  --accent-hover: #448aff;
+  --card-bg: #2a2a2a;
+  --border-color: #444;
+  --input-bg: #333;
+  --modal-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* === ОБЩИЕ СТИЛИ === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+body, html {
+  height: 100%;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+body {
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+.app-container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* === САЙДБАР === */
+/* === САЙДБАР (обновлённый) === */
+.sidebar {
+  width: 220px;
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  padding: 24px 18px; /* чуть меньше отступы */
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  padding: 6px 12px;
+  margin-bottom: 4px; /* меньше отступ между строками */
+  border-radius: 6px;
+  color: var(--sidebar-text);
+  opacity: 0.85;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+/* Подсветка при наведении */
+.sidebar li:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  opacity: 1;
+}
+
+/* Активная вкладка с фоном */
+.sidebar li.active {
+  background-color: var(--sidebar-active-bg);
+  font-weight: 600;
+  opacity: 1;
+  position: relative;
+}
+
+/* Левая цветная полоска у активной вкладки */
+.sidebar li.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 4px;
+  background-color: var(--accent);
+  border-radius: 3px;
+}
+
+/* Иконки */
+.sidebar li i {
+  font-size: 16px;
+  width: 18px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+
+
+/* === ГЛАВНАЯ ОБЛАСТЬ === */
+.main-content {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header h1 {
+  font-size: 26px;
+  font-weight: 600;
+}
+.theme-toggle {
+  font-size: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* === ВКЛАДКИ === */
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+.tab-btn.active {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+.export-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.export-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+/* === СЕКЦИИ ВКЛАДОК === */
+.tab-section {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+.tab-section.active {
+  display: block;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === ФИЛЬТРЫ === */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.filters input,
+.filters select {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-color);
+  font-size: 14px;
+}
+.filters input::placeholder {
+  color: #888;
+}
+.filters input:focus,
+.filters select:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+/* === Таблицы Tabulator (минимальные корректировки) === */
+.tabulator {
+  font-size: 13px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+/* === МОДАЛЬНОЕ ОКНО === */
+.chat-modal {
+  position: fixed;
+  inset: 0;
+  background: var(--modal-bg);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+.chat-box {
+  background: var(--card-bg);
+  border-radius: 8px;
+  width: 500px;
+  max-width: 90%;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.chat-close {
+  cursor: pointer;
+  float: right;
+  font-size: 20px;
+}
+/* Отступ от фильтров до таблицы */
+.filters + .tabulator {
+  margin-top: 16px;
+}
+/* === Ширина фильтров: вкладка "Объекты" === */
+#filter-name {
+  width: 260px;
+}
+#filter-district {
+  width: 100px;
+}
+#filter-performer {
+  width: 160px;
+}
+#filter-year {
+  width: 80px;
+}
+#filter-responsible {
+  width: 180px;
+}
+#filter-start,
+#filter-end {
+  width: 130px;
+}
+#filter-doc-contract {
+  width: 160px;
+}
+/* === Ширина фильтров: вкладка "Документы" === */
+#filter-doc-name {
+  width: 280px;
+}
+#filter-doc-number {
+  width: 160px;
+}
+#filter-doc-date {
+  width: 130px;
+}
+/* === Заголовки таблицы === */
+table th {
+  background-color: var(--accent);   /* основной синий цвет */
+  color: white;
+  padding: 12px 10px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* === Общие стили строк таблицы === */
+table td {
+  padding: 10px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: white;
+}
+
+/* === Чередование фона строк (зебра) === */
+table tbody tr:nth-child(even) td {
+  background-color: #f0f7ff; /* светло-голубой */
+}
+
+/* === Убираем лишние границы и делаем таблицу чище === */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: white;
+}
+.tabulator .tabulator-header {
+ background-color: #bcd3ee !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.tabulator .tabulator-row:nth-child(even) {
+  background-color: #f0f7ff;
+}
+
+.tabulator .tabulator-row:nth-child(odd) {
+  background-color: white;
+}
+/* Сделать фон заголовков таблицы синим */
+.tabulator .tabulator-col {
+  background-color: #5ca4ff !important; /* 👈 более мягкий синий */
+  color: white !important;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+}
+
+.tabulator .tabulator-header {
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+.tabulator {
+  border: none !important;
+}
+
+.tabulator .tabulator-header {
+  border-bottom: none !important;
+}
+
+.tabulator .tabulator-header .tabulator-col {
+  border-right: none !important;
+  background-color: #5ca4ff !important; /* или свой мягкий синий */
+}
+
+.tabulator-row .tabulator-cell {
+  border-right: none !important;
+}
+
+/* Убираем границы у всех таблиц Tabulator */
+.tabulator {
+  border: none !important;
+}
+
+.tabulator .tabulator-header {
+  border-bottom: none !important;
+}
+
+.tabulator .tabulator-header .tabulator-col {
+  border-right: none !important;
+  background-color: #5ca4ff1a !important; /* светло-синий, менее насыщенный */
+}
+
+.tabulator-row .tabulator-cell {
+  border-right: none !important;
+}
+/* Цвет заголовка таблицы */
+.tabulator .tabulator-header {
+  background-color: #bcd3ee !important; /* или #bcd3ee */
+}
+/* Горизонтальные линии */
+.tabulator .tabulator-row {
+  border-bottom: 1px solid #e0e0e0; /* светло-серая тонкая линия */
+}
+
+/* Вертикальные линии */
+.tabulator .tabulator-cell {
+  border-right: 1px solid #e0e0e0; /* светло-серая тонкая линия */
+}
+
+/* Убираем лишнюю жирность у последней ячейки */
+.tabulator .tabulator-cell:last-child {
+  border-right: none;
+}
+
+/* Таблица без жирных внешних рамок */
+.tabulator {
+  border: none;
+}
+
+/* Унифицируем цвет текста во всех таблицах */
+.tabulator .tabulator-cell,
+.tabulator .tabulator-header .tabulator-col .tabulator-col-title {
+  color: #333 !important;
+}
+/* Горизонтальные линии */
+.tabulator .tabulator-row {
+  border-bottom: 1px solid #e0e0e0 !important;
+}
+
+/* Вертикальные линии */
+.tabulator .tabulator-cell {
+  border-right: 1px solid #e0e0e0 !important;
+}
+
+/* Убираем границу у последней ячейки */
+.tabulator .tabulator-cell:last-child {
+  border-right: none !important;
+}
+
+/* Убираем рамку у всей таблицы */
+.tabulator {
+  border: none !important;
+}
+/* Горизонтальные линии */
+.tabulator .tabulator-row {
+  border-bottom: 1px solid #e0e0e0 !important;
+}
+
+/* Вертикальные линии */
+.tabulator .tabulator-cell {
+  border-right: 1px solid #e0e0e0 !important;
+}
+
+/* Убираем границу у последней ячейки */
+.tabulator .tabulator-cell:last-child {
+  border-right: none !important;
+}
+
+/* Убираем рамку у всей таблицы */
+.tabulator {
+  border: none !important;
+}
+/* Общие стили для таблиц Tabulator */
+.tabulator .tabulator-row {
+  border-bottom: 1px solid #ddd !important;
+}
+
+.tabulator .tabulator-cell {
+  border-right: 1px solid #ddd !important;
+  color: #444 !important;
+}
+
+/* Убираем последнее правое разделение, чтобы не было двойного бордера */
+.tabulator .tabulator-row .tabulator-cell:last-child {
+  border-right: none !important;
+}
+.filters input:focus,
+.filters select:focus {
+  border-color: #000 !important; /* черный обвод */
+  outline: none;
+  box-shadow: none;
+}
+
+
+
+
+/* === Фиксированные стили для фильтров === */
+.filters input,
+.filters select {
+  background: #fff !important;
+  color: #222 !important;
+  border: 1px solid #ccc !important;
+}
+
+.filters input:focus,
+.filters select:focus {
+  border-color: #000 !important;
+  outline: none;
+  box-shadow: none;
+}
+
+/* === Фиксированные стили для вкладок === */
+.tab-btn {
+  background: #fff !important;
+  border: 1px solid #ccc !important;
+  color: #333 !important;
+}
+
+.tab-btn.active {
+  background-color: #2979ff !important;
+  color: white !important;
+  border-color: #2979ff !important;
+}
+
+/* === Кнопка экспорта === */
+.export-btn {
+  background: #2979ff !important;
+  color: white !important;
+  border: none !important;
+}
+
+.export-btn:hover {
+  background-color: #1565c0 !important;
+}
+
+/* === Таблицы Tabulator (фиксация цветов) === */
+.tabulator {
+  background-color: #fff !important;
+  color: #333 !important;
+}
+
+.tabulator .tabulator-col {
+  background-color: #5ca4ff !important;
+  color: white !important;
+}
+
+.tabulator .tabulator-row:nth-child(even) {
+  background-color: #f0f7ff !important;
+}
+
+.tabulator .tabulator-row:nth-child(odd) {
+  background-color: #fff !important;
+}

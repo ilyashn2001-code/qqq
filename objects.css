@@ -579,3 +579,70 @@ body {
   text-align: center;
   opacity: 0.9;
 }
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    overflow-x: auto;
+  }
+
+  .sidebar h2 {
+    display: none;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sidebar li {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  .main {
+    padding: 16px;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-box {
+    width: 95vw;
+    height: 90vh;
+  }
+
+  #gantModal .chat-box,
+  #documentModal .chat-box {
+    width: 95vw !important;
+    height: 90vh !important;
+  }
+
+  .chat-option {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  #chatBackBtn {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .filters input,
+  .filters select {

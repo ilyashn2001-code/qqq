@@ -1,275 +1,456 @@
-<!DOCTYPE html>
-<html lang="ru" data-theme="light">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Intellectual Journal</title>
+/* === ПЕРЕМЕННЫЕ === */
+:root {
+  --bg-color: #f7f9fc;
+  --text-color: #1e2a3a;
+  --sidebar-bg: #1e2a3a;
+  --sidebar-text: white;
+  --sidebar-active-bg: #2c3e50;
+  --accent: #1e88e5;
+  --accent-hover: #1565c0;
+  --card-bg: white;
+  --card-shadow: rgba(0, 0, 0, 0.05);
+  --border-color: #ccc;
+  --input-bg: white;
+}
 
-  <!-- Шрифт -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+[data-theme="dark"] {
+  --bg-color: linear-gradient(135deg, #1e003e, #b71c8d); 
+  --text-color: #f7f9fc;
+  --sidebar-bg: #1c1c1c;
+  --sidebar-text: #fff;
+  --sidebar-active-bg: #333;
+  --accent: #b084f7;
+  --accent-hover: #a64ac9;
+  --card-bg: rgba(30, 30, 30, 0.8);
+  --card-shadow: rgba(255, 255, 255, 0.05);
+  --border-color: #555;
+  --input-bg: #2a2a2a;
+}
 
-  <!-- Иконки -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+/* === ОБЩИЕ СТИЛИ === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+html, body {
+  height: 100%;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+body {
+  font-size: 14px;
+  min-height: 100vh;
+}
+.app-container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
 
-  <!-- Стили -->
-  <link rel="stylesheet" href="dashboard.css" />
-  <link rel="stylesheet" href="objects.css" />
-  <link rel="stylesheet" href="themes.css" />
+/* === САЙДБАР === */
+.sidebar {
+  width: 220px;
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+.sidebar ul {
+  list-style: none;
+}
+.sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  padding: 6px 14px;
+  cursor: pointer;
+  opacity: 0.85;
+  border-radius: 4px;
+}
+.sidebar li i {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  opacity: 0.9;
+}
+.sidebar li.active {
+  background-color: var(--sidebar-active-bg);
+  font-weight: bold;
+  opacity: 1;
+  position: relative;
+}
+.sidebar li.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 4px; height: 100%;
+  background-color: var(--accent);
+  border-radius: 4px 0 0 4px;
+}
 
-  <style>
-    body { font-family: 'Montserrat', sans-serif; }
-    .btn, .filters button { border: none; transition: background-color 0.3s ease; }
-    .theme-toggle { background: none; border: none; font-size: 18px; cursor: pointer; margin-left: auto; }
-    .header { display: flex; justify-content: space-between; align-items: center; }
+/* === ОСНОВНАЯ ОБЛАСТЬ === */
+.main {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
 
-    /* SPA табы */
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .sidebar li { cursor: pointer; }
-  </style>
-</head>
-<body>
-  <div class="app-container">
-    <!-- Сайдбар -->
-    <aside class="sidebar">
-      <h2>Intellectual Journal</h2>
-      <ul>
-        <li data-target="dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Дашборд</li>
-        <li data-target="objects"><i class="fas fa-building"></i> Объекты</li>
-        <li data-target="photos"><i class="fas fa-camera"></i> Фотографии</li>
-        <li data-target="journals"><i class="fas fa-book"></i> Журналы</li>
-      </ul>
-    </aside>
+/* === ШАПКА === */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.header h1 {
+  font-size: 28px;
+  font-weight: 600;
+}
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: auto;
+}
 
-    <!-- Основная область -->
-    <main class="main">
-      <!-- 🔵 Контент Дашборда -->
-      <div id="dashboard" class="tab-content active">
-        <header class="header">
-          <h1>Аналитика по объектам</h1>
-          <button id="dashboardThemeToggle" class="theme-toggle" title="Переключить тему">🌗</button>
-        </header>
+/* === ФИЛЬТРЫ === */
+.filters {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.filters input,
+.filters select {
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid black;
+  border-radius: 6px;
+  background-color: var(--input-bg);
+  color: black;
+  transition: border 0.2s ease;
+}
+.filters input::placeholder {
+  color: #555 !important;
+  opacity: 1;
+}
+.filters input:hover,
+.filters select:hover {
+  border: 2px solid black;
+  background-color: var(--input-bg);
+}
+.filters select {
+  color: #555;
+  background-image: url("data:image/svg+xml,%3Csvg width='8' height='5' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 6L0.5 0.5H9.5L5 6Z' fill='%23555'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 8px;
+  padding-right: 28px;
+  appearance: none;
+}
+.filters input[type="text"] {
+  appearance: none;
+  background-image: none !important;
+  padding-right: 12px;
+}
 
-        <!-- Фильтры -->
-        <div class="filters">
-          <select id="dashboardDistrictFilter" class="filter-okrug">
-            <option value="">Округ</option>
-            <option value="САО">САО</option>
-            <option value="СВАО">СВАО</option>
-          </select>
-          <select id="dashboardFilterArea" style="width:120px; font-size: 13px;">
-            <option value="">Район</option>
-          </select>
-          <select id="dashboardTypeFilter" class="filter-type">
-            <option value="">Тип объекта</option>
-            <option value="Дворовая территория">Дворовая территория</option>
-          </select>
-          <select id="dashboardFilterCustomer"><option>Заказчик</option></select>
-          <select id="dashboardFilterContractor"><option>Подрядчик</option></select>
-          <select id="dashboardStatusObject"><option>Статус объекта</option></select>
-          <select id="dashboardStatusCheck"><option>Статус проверки</option></select>
-          <select id="dashboardYear"><option>Год проведения</option></select>
-          <input type="text" id="dashboardDateStart" placeholder="Начало периода" class="filter-date-start" />
-          <input type="text" id="dashboardDateEnd" placeholder="Конец периода" class="filter-date-end" />
-        </div>
+/* === ИНДИВИДУАЛЬНЫЕ ШИРИНЫ === */
+#districtFilter { width: 90px; }
+#typeFilter { width: 150px; }
+#dateStartFilter { width: 150px; }
+#dateEndFilter { width: 140px; }
+#fioFilter { width: 150px; }
+#violationFilter { width: 120px; }
+#searchInput {
+  flex: 1;
+  min-width: 260px;
+}
 
-        <section class="dashboard-body">
-          <div class="kpi-cards">
-            <div class="kpi-card">
-              <h3>Объектов всего</h3>
-              <p id="dashboardTotalObjects">-</p>
-            </div>
-            <div class="kpi-card">
-              <h3>% Выполнения</h3>
-              <p id="dashboardAvgProgress">-</p>
-            </div>
-          </div>
+/* === БАЗОВАЯ ОБЛАСТЬ ДЛЯ ГРАФИКОВ И КАРТОЧЕК === */
+.dashboard-body {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.dashboard-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
 
-          <div class="chart-section triple-charts">
-            <div class="chart-card">
-              <h3>Статусы объектов</h3>
-              <div id="dashboardPieStatusObject" style="height: 300px;"></div>
-            </div>
-            <div class="chart-card">
-              <h3>Статусы проверок</h3>
-              <div id="dashboardPieStatusCheck" style="height: 300px;"></div>
-            </div>
-            <div class="chart-card">
-              <h3>Объекты по округам</h3>
-              <div id="dashboardPieByDistrict" style="height: 300px;"></div>
-            </div>
-          </div>
+.kpi-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
 
-          <div class="chart-section">
-            <h3>График Ганта объектов</h3>
-            <div id="dashboardGanttChart" style="height: 400px;"></div>
-          </div>
+.kpi-card {
+  flex: 1;
+  min-width: 200px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+  text-align: center;
+}
 
-          <div class="chart-section">
-            <h3>Карта объектов</h3>
-            <div id="dashboardMap" style="height: 400px;"></div>
-          </div>
+.kpi-card h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #666;
+}
 
-          <div class="kpi-container">
-            <div class="kpi-card">
-              <div class="kpi-title">Средний % готовности</div>
-              <div class="kpi-value" id="dashboardMetricReady">-</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-title">Проверок</div>
-              <div class="kpi-value" id="dashboardMetricChecks">-</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-title">Нарушений</div>
-              <div class="kpi-value" id="dashboardMetricViolations">-</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-title">Фотофиксаций</div>
-              <div class="kpi-value" id="dashboardMetricPhotos">-</div>
-            </div>
-          </div>
+.kpi-card p {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
 
-          <div class="chart-section">
-            <h3>Динамика активных объектов по годам</h3>
-            <div id="dashboardYearDynamics" style="height: 300px;"></div>
-          </div>
+.chart-section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
 
-          <div class="rating-section">
-            <div class="rating-block">
-              <h4>Топ-5 объектов с нарушениями</h4>
-              <ul id="dashboardTopObjects"></ul>
-            </div>
-            <div class="rating-block">
-              <h4>Топ-5 видов работ с нарушениями</h4>
-              <ul id="dashboardTopContractors"></ul>
-            </div>
-          </div>
-        </section>
-      </div>
+.metrics-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
 
-      <!-- 🟢 Контент Объектов -->
-      <div id="objects" class="tab-content">
-        <header class="header">
-          <h1>Строительные объекты</h1>
-          <button id="objectsThemeToggle" class="theme-toggle" title="Переключить тему">🌗</button>
-        </header>
+.metric-card {
+  flex: 1;
+  min-width: 180px;
+  background: #f9fafc;
+  border-left: 5px solid #3f8cff;
+  padding: 15px 20px;
+  border-radius: 6px;
+}
 
-        <div class="filters">
-          <input type="text" id="objectsSearchInput" placeholder="Поиск по названию или адресу" />
-          <select id="objectsDistrictFilter" class="filter-okrug">
-            <option value="">Округ</option>
-            <option value="САО">САО</option>
-            <option value="СВАО">СВАО</option>
-          </select>
-          <select id="objectsTypeFilter" class="filter-type">
-            <option value="">Тип объекта</option>
-            <option value="Дворовая территория">Дворовая территория</option>
-          </select>
-          <input type="text" id="objectsDateStart" placeholder="Начало периода" class="filter-date-start" />
-          <input type="text" id="objectsDateEnd" placeholder="Конец периода" class="filter-date-end" />
-          <input type="text" id="objectsFioFilter" placeholder="Ответственный" class="filter-fio" />
-          <input type="text" id="objectsViolationFilter" placeholder="Нарушения" class="filter-violation" />
-        </div>
+.metric-label {
+  display: block;
+  color: #888;
+  font-size: 14px;
+}
 
-        <div class="cards-container" id="objectsList"></div>
+.metric-card span:last-child {
+  font-size: 18px;
+  font-weight: bold;
+  color: #222;
+}
 
-        <!-- Модалка чатов -->
-        <div id="objectsChatModal" class="chat-modal">
-          <div class="chat-box">
-            <div class="chat-box-header">
-              <h3 id="objectsChatTitle">Выберите чат</h3>
-              <span class="chat-close">&times;</span>
-            </div>
-            <div class="chat-select" id="objectsChatSelect">
-              <button class="chat-option" data-chat="Производство работ">Чат №1 Производство работ</button>
-              <button class="chat-option" data-chat="Входной контроль">Чат №2 Входной контроль</button>
-              <button class="chat-option" data-chat="Лабораторные испытания">Чат №3 Лабораторные испытания</button>
-              <button class="chat-option" data-chat="Фиксация нарушений">Чат №4 Фиксация нарушений</button>
-            </div>
-            <div class="chat-box-body" id="objectsChatBody" style="display:none;">
-              <p>Сообщения по выбранному чату будут здесь.</p>
-            </div>
-            <div class="chat-box-input" id="objectsChatInput" style="display:none;">
-              <input type="text" placeholder="Введите сообщение..." />
-            </div>
-            <button id="objectsChatBackBtn" style="display:none;">← Назад к списку</button>
-          </div>
-        </div>
+.rating-section {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
 
-        <!-- Модалка диаграммы Ганта -->
-        <div id="objectsGantModal" class="chat-modal">
-          <div class="chat-box" style="width: 1300px; height: 700px;">
-            <div class="chat-box-header">
-              <h3>Диаграмма Ганта — Путевой пр. 38</h3>
-              <span class="chat-close gant-close">&times;</span>
-            </div>
-            <div class="chat-box-body" style="overflow-x: auto; width: 100%; padding: 20px; box-sizing: border-box;">
-              <div id="objectsGantChart" style="min-width: 1500px; min-height: 400px;"></div>
-              <div id="objectsGantLegend" style="margin-top: 10px; display: flex; justify-content: center; gap: 20px; font-size: 14px;">
-                <div style="display:flex; align-items:center;">
-                  <span style="display:inline-block;width:20px;height:10px;background:#1e3a8a;margin-right:6px;"></span>
-                  Сделано
-                </div>
-                <div style="display:flex; align-items:center;">
-                  <span style="display:inline-block;width:20px;height:10px;background:#60a5fa;margin-right:6px;"></span>
-                  Осталось
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+.rating-block {
+  flex: 1;
+  min-width: 250px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
 
-        <!-- Модалка документов -->
-        <div id="objectsDocumentModal" class="chat-modal">
-          <div class="chat-box" style="width: 1100px; max-height: 70vh; display: flex; flex-direction: column;">
-            <div class="chat-box-header">
-              <h3>Документы по объекту</h3>
-              <span class="chat-close document-close">&times;</span>
-            </div>
-            <div class="chat-box-body" style="flex: 1; overflow-y: auto; padding: 0;">
-              <table class="doc-table">
-                <thead>
-                  <tr>
-                    <th>Наименование</th>
-                    <th>Загрузка документа</th>
-                    <th>Дата загрузки</th>
-                    <th>Комментарий</th>
-                  </tr>
-                </thead>
-                <tbody id="objectsDocumentTableBody"></tbody>
-              </table>
-            </div>
-            <div style="padding: 12px 16px; display: flex; justify-content: flex-end; background: var(--input-bg);">
-              <button id="objectsSaveDocumentsBtn" class="btn-accent">Сохранить</button>
-            </div>
-          </div>
-        </div>
-      </div>
+.rating-block h4 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #444;
+}
 
-      <!-- 🟣 Заглушки -->
-      <div id="photos" class="tab-content"><h2>Фотографии</h2></div>
-      <div id="journals" class="tab-content"><h2>Журналы</h2></div>
-    </main>
-  </div>
+.rating-block ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
 
-  <!-- Скрипт для переключения вкладок -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const tabs = document.querySelectorAll('.sidebar li');
-      const contents = document.querySelectorAll('.tab-content');
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          contents.forEach(c => c.classList.remove('active'));
-          tab.classList.add('active');
-          document.getElementById(tab.dataset.target).classList.add('active');
-        });
-      });
-    });
-  </script>
+.rating-block li {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+.metric-card {
+  background-color: #f5f7fa;
+  border: 1px solid #d1d5db;
+  border-left: 4px solid #3b82f6; /* Синяя полоса */
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-family: 'Montserrat', sans-serif;
+  flex: 1;
+}
 
-  <!-- Подключаем JS -->
-  <script src="dashboard.js" defer></script>
-  <script src="objects.js" defer></script>
-</body>
-</html>
+.metric-card span.metric-label {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.metric-card span#metric-ready,
+.metric-card span#metric-checks,
+.metric-card span#metric-violations,
+.metric-card span#metric-photos {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+}
+.triple-charts {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.chart-card {
+  flex: 1;
+  background: var(--bg-secondary, #f9f9f9);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.05);
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+.filters select,
+.filters input {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+/* Увеличенные селекты */
+#filter-area,
+#filter-customer,
+#filter-contractor,
+#filter-status-object,
+#filter-year {
+  min-width: 180px; /* или больше — подбери по макету */
+}
+/* --- 📌 Новый стиль для фильтров в одну строку --- */
+.filters {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.filters select,
+.filters input {
+  display: inline-block;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Сделаем фиксированную ширину для округов и районов */
+#districtFilter,
+#filter-area {
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+}
+.kpi-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.kpi-card {
+  background: #ffffff; /* белый фон */
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #ddd; /* тонкая окантовка */
+  border-left: 6px solid #1e90ff; /* синяя полоска слева */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.kpi-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.kpi-title {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.kpi-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+}
+
+.filters input,
+.filters select {
+  background-color: #ffffff !important; /* всегда белый фон */
+  color: #333333 !important;           /* тёмно-серый текст */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* placeholder у input */
+.filters input::placeholder {
+  color: #555555 !important;
+  opacity: 1;
+}
+
+/* hover эффект */
+.filters input:hover,
+.filters select:hover {
+  border: 1px solid var(--accent);
+  background-color: #ffffff !important;
+  color: #333333 !important;
+}
+
+/* стрелочка у select (серая) */
+.filters select {
+  background-image: url("data:image/svg+xml,%3Csvg width='8' height='5' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 6L0.5 0.5H9.5L5 6Z' fill='%23333'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 8px;
+  padding-right: 28px;
+  appearance: none;
+}
+
+.rating-block {
+  background: #ffffff !important; /* всегда белый фон */
+  color: #1e2a3a !important;      /* всегда тёмный текст */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+.rating-block h4 {
+  color: #333333 !important; /* тёмно-серый заголовок */
+}
+
+.rating-block li {
+  color: #444444 !important; /* текст внутри всегда тёмный */
+  border-bottom: 1px solid #eee;
+}

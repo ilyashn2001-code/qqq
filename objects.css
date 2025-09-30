@@ -646,3 +646,24 @@ body {
 
   .filters input,
   .filters select {
+
+    
+    
+    /* Ссылки в сайдбаре */
+.sidebar a {
+  color: var(--sidebar-text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.sidebar a:hover {
+  color: var(--accent);
+}
+
+.sidebar li.active a {
+  color: var(--sidebar-text);
+  font-weight: bold;
+}

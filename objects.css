@@ -649,9 +649,9 @@ body {
 
     
     
-    /* Ссылки в сайдбаре */
+   /* сброс стандартного цвета ссылок */
 .sidebar a {
-  color: var(--sidebar-text);
+  color: var(--sidebar-text) !important;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -659,11 +659,29 @@ body {
   width: 100%;
 }
 
+/* при наведении */
 .sidebar a:hover {
   color: var(--accent);
 }
 
-.sidebar li.active a {
-  color: var(--sidebar-text);
+/* активный пункт */
+.sidebar li.active {
+  background-color: var(--sidebar-active-bg);
   font-weight: bold;
+  position: relative;
+}
+
+.sidebar li.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--accent);
+  border-radius: 4px 0 0 4px;
+}
+
+.sidebar li.active a {
+  color: var(--sidebar-text) !important;
 }

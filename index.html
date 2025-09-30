@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Строительные объекты</title>
+
+  <!-- Шрифт -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Стили -->
+  <link rel="stylesheet" href="objects.css" />
+  <link rel="stylesheet" href="themes.css" />
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .btn, .filters button {
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      margin-left: auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+
+  <!-- Подключаем JS с defer -->
+  <script src="objects.js" defer></script>
+</head>
+<body>
+  <div class="app-container">
+   
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    
+<aside class="sidebar">
+  <h2>Intellectual Journal</h2>
+  <ul>
+    <li><i class="fas fa-tachometer-alt"></i> Дашборд</li>
+    <li class="active"><i class="fas fa-building"></i> Объекты</li>
+    <li><i class="fas fa-camera"></i> Фотографии</li>
+    <li><i class="fas fa-book"></i> Журналы</li>
+  </ul>
+</aside>
+
+    <main class="main">
+      <header class="header">
+        <h1>Строительные объекты</h1>
+        <button id="themeToggle" class="theme-toggle" title="Переключить тему">🌗</button>
+      </header>
+
+<div class="filters">
+  <input type="text" id="searchInput" placeholder="Поиск по названию или адресу" />
+
+  <select id="districtFilter" class="filter-okrug">
+    <option value="">Округ</option>
+    <option value="САО">САО</option>
+    <option value="СВАО">СВАО</option>
+  </select>
+
+  <select id="typeFilter" class="filter-type">
+    <option value="">Тип объекта</option>
+    <option value="Дворовая территория">Дворовая территория</option>
+  </select>
+
+  <input type="text" id="dateStartFilter" placeholder="Начало периода" class="filter-date-start" />
+  <input type="text" id="dateEndFilter" placeholder="Конец периода" class="filter-date-end" />
+  <input type="text" id="fioFilter" placeholder="Ответственный" class="filter-fio" />
+  <input type="text" id="violationFilter" placeholder="Нарушения" class="filter-violation" />
+</div>
+
+
+
+
+
+      <div class="cards-container" id="objectList">
+        <!-- Карточки отрисовываются скриптом -->
+      </div>
+    </main>
+  </div>
+
+<div id="chatModal" class="chat-modal">
+  <div class="chat-box">
+    <div class="chat-box-header">
+      <h3 id="chatTitle">Выберите чат</h3>
+      <span class="chat-close">&times;</span>
+    </div>
+    
+    <div class="chat-select" id="chatSelect">
+      <button class="chat-option" data-chat="Производство работ">Чат №1 Производство работ</button>
+      <button class="chat-option" data-chat="Входной контроль">Чат №2 Входной контроль</button>
+      <button class="chat-option" data-chat="Лабораторные испытания">Чат №3 Лабораторные испытания</button>
+      <button class="chat-option" data-chat="Фиксация нарушений">Чат №4 Фиксация нарушений</button>
+    </div>
+
+    <div class="chat-box-body" id="chatBody" style="display:none;">
+      <p>Сообщения по выбранному чату будут здесь.</p>
+    </div>
+
+    <div class="chat-box-input" id="chatInput" style="display:none;">
+      <input type="text" placeholder="Введите сообщение..." />
+    </div>
+
+<button id="chatBackBtn" style="display:none;">← Назад к списку</button>
+  </div>
+</div>
+
+
+
+<!-- Модалка диаграммы Ганта -->
+<div id="gantModal" class="chat-modal">
+  <div class="chat-box" style="width: 1300px; height: 700px;">
+    <div class="chat-box-header">
+      <h3>Диаграмма Ганта — Путевой пр. 38</h3>
+      <span class="chat-close gant-close">&times;</span>
+    </div>
+
+    <!-- Основной скролл по горизонтали -->
+    <div class="chat-box-body" style="overflow-x: auto; width: 100%; padding: 20px; box-sizing: border-box;">
+      <!-- контейнер без фиксированной ширины -->
+      <div id="gantChart" style="min-width: 1500px; min-height: 400px;"></div>
+
+      <!-- 👇 легенда -->
+      <div id="gantLegend" style="margin-top: 10px; display: flex; justify-content: center; gap: 20px; font-size: 14px;">
+        <div style="display:flex; align-items:center;">
+          <span style="display:inline-block;width:20px;height:10px;background:#1e3a8a;margin-right:6px;"></span>
+          Сделано
+        </div>
+        <div style="display:flex; align-items:center;">
+          <span style="display:inline-block;width:20px;height:10px;background:#60a5fa;margin-right:6px;"></span>
+          Осталось
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Подключаем Highcharts Gantt -->
+<script src="https://code.highcharts.com/gantt/highcharts-gantt.js"></script>
+
+
+
+<!-- 📁 Модалка документов -->
+<div id="documentModal" class="chat-modal">
+  <div class="chat-box" style="width: 1100px; max-height: 70vh; display: flex; flex-direction: column;">
+    
+    <!-- Заголовок -->
+    <div class="chat-box-header">
+      <h3>Документы по объекту</h3>
+      <span class="chat-close document-close">&times;</span>
+    </div>
+
+    <!-- Таблица -->
+    <div class="chat-box-body" style="flex: 1; overflow-y: auto; padding: 0;">
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th>Наименование</th>
+            <th>Загрузка документа</th>
+            <th>Дата загрузки</th>
+            <th>Комментарий</th>
+          </tr>
+        </thead>
+        <tbody id="documentTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Кнопка Сохранить -->
+    <div style="padding: 12px 16px; display: flex; justify-content: flex-end; background: var(--input-bg);">
+      <button id="saveDocumentsBtn" class="btn-accent">
+        Сохранить
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+  </div>
+</body>
+</html>

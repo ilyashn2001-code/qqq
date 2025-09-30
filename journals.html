@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <title>Журналы по объектам</title>
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+
+  <!-- Tabulator CSS -->
+  <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+  
+<body>
+<div class="app-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Intellectual Journal</h2>
+   <ul>
+  <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Дашборд</a></li>
+  <li><a href="index.html"><i class="fas fa-building"></i> Объекты</a></li>
+  <li><a href="photos.html"><i class="fas fa-camera"></i> Фотографии</a></li>
+  <li class="active"><a href="journals.html"><i class="fas fa-book"></i> Журналы</a></li>
+</ul>
+
+  </aside>
+  
+  
+ <!-- Main Content -->
+  <main class="main-content">
+ <div class="header">
+  <h1>Журналы</h1>
+  <div style="display: flex; align-items: center; gap: 10px; margin-left: auto;">
+    <button id="themeToggle" class="theme-toggle" title="Переключить тему">🌗</button>
+  </div>
+</div>
+
+   <div class="tabs" style="justify-content: space-between; align-items: center;">
+  <div style="display: flex; gap: 8px;">
+    <button class="tab-btn active" data-tab="tab-objects">
+      <i class="fas fa-folder"></i> Реестр объектов
+    </button>
+    <button class="tab-btn" data-tab="tab-documents">
+      <i class="fas fa-paperclip"></i> Реестр документов
+    </button>
+  </div>
+
+  <button id="exportExcelBtn" class="export-btn" title="Скачать Excel">
+    <i class="fas fa-file-excel"></i> Выгрузить в Excel
+  </button>
+</div>
+
+
+<div id="tab-objects" class="tab-section active">
+      <div class="filters top-bar">
+        <input type="text" id="filter-name" placeholder="Наименование объекта">
+        <input type="text" id="filter-district" placeholder="Округ">
+        <input type="text" id="filter-performer" placeholder="Исполнитель">
+        <input type="text" id="filter-year" placeholder="Год">
+        <input type="text" id="filter-responsible" placeholder="Ответственный">
+        <input type="text" id="filter-start" placeholder="Начало">
+        <input type="text" id="filter-end" placeholder="Окончание">
+
+      </div>
+      <div id="table-objects"></div>
+    </div>
+
+  <!-- Tab: Документы -->
+   <div id="tab-documents" class="tab-section">
+  <div class="filters top-bar">
+    <input type="text" id="filter-doc-name" placeholder="Наименование документа">
+      <input type="text" id="filter-doc-contract" placeholder="Номер контракта">
+    <input type="text" id="filter-doc-number" placeholder="Номер документа">
+    <input type="text" id="filter-doc-date" placeholder="Дата">
+  </div>
+  <div id="table-documents"></div>
+</div>
+  </main>
+</div>
+
+<script src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
+<script>
+  const objectData =[
+    {
+        "id": 1,
+        "name": "Дворовая территория по адресу: Путевой пр. 38",
+        "year": 2024,
+        "district": "СВАО",
+        "performer": "АД",
+        "responsible": "Андреев Ю.А",
+        "startDate": "15.04.2024",
+        "endDate": "25.08.2024",
+        "progress": "100",
+        "_children": [
+            {
+                "name": "Ремонт покрытия асфальтобетонного проезда в рамках благоустройства территории",
+                "startDate": "15.04.2024",
+                "endDate": "25.04.2024",
+                "progress": "100"
+            },
+            {
+                "name": "Устройство покрытия асфальтобетонного проезда в рамках благоустройства территории",
+               
+                "startDate": "25.04.2024",
+                "endDate": "11.05.2024",
+                "progress": "100"
+            },
+            {
+                "name": "Ремонт покрытия асфальтобетонного тротуара в рамках благоустройства территории",
+      
+                "startDate": "11.05.2024",
+                "endDate": "28.05.2024",
+                "progress": "100"
+            },
+            {
+                "name": "Замена дорожного бортового камня в рамках благоустройства территории",
+             
+                "startDate": "28.05.2024",
+                "endDate": "15.06.2024",
+                "progress": "100"
+            },
+            {
+                "name": "Устройство дорожного бортового камня в рамках благоустройства территории",
+            
+                "startDate": "15.06.2024",
+                "endDate": "22.07.2024",
+                "progress": "100"
+            },
+            {
+                "name": "Ремонт покрытия асфальтобетонного автопарковки в рамках благоустройства территории",
+             
+                "startDate": "22.07.2024",
+                "endDate": "25.08.2024",
+                "progress": "100"
+            },
+        ]
+    },
+{
+  id: 2,
+  name: "Дворовая территория по адресу: Флотская ул. 54, 58 к.1",
+  status: "Завершен",
+  year: 2024,
+  district: "САО",
+  performer: "АД",
+  responsible: "Семенов И.П",
+  startDate: "15.04.2024",
+  endDate: "15.08.2024",
+  progress: "100",
+  _children: [
+    {
+      name: "Ремонт покрытия асфальтобетонного проезда в рамках благоустройства территории",
+
+      startDate: "15.04.2024",
+      endDate: "21.05.2024",
+      progress: "100"
+    },
+    {
+     
+      startDate: "21.05.2024",
+      endDate: "05.06.2024",
+      progress: "100"
+    },
+    {
+      name: "Ремонт покрытия асфальтобетонного тротуара в рамках благоустройства территории",
+     
+      startDate: "05.06.2024",
+      endDate: "25.06.2024",
+      progress: "100"
+    },
+    {
+      name: "Замена дорожного бортового камня в рамках благоустройства территории",
+      
+      startDate: "25.06.2024",
+      endDate: "12.07.2024",
+      progress: "100"
+    },
+    {
+      name: "Устройство дорожного бортового камня в рамках благоустройства территории",
+      
+      startDate: "12.07.2024",
+      endDate: "25.08.2024",
+      progress: "100"
+    }
+  ]
+},
+{
+  id: 3,
+  name: "Дворовая территория по адресу: Каргопольская ул. 18",
+  status: "Завершен",
+  year: 2024,
+  district: "СВАО",
+  performer: "АД",
+  responsible: "Петров Д.С.",
+  startDate: "15.04.2024",
+  endDate: "25.08.2024",
+  progress: "100",
+  _children: [
+    {
+      name: "Устройство садового бортового камня в рамках благоустройства территории",
+      
+      startDate: "15.04.2024",
+      endDate: "24.05.2024",
+      progress: "100"
+    },
+    {
+      name: "Замена садового бортового камня в рамках благоустройства территории",
+     
+      startDate: "07.05.2024",
+      endDate: "24.05.2024",
+      progress: "100"
+    },
+    {
+      name: "Ремонт газона в рамках благоустройства территории",
+     
+      startDate: "24.05.2024",
+      endDate: "30.05.2024",
+      progress: "100"
+    },
+    {
+      name: "Замена покрытия из резиновой крошки спортивной площадки в рамках благоустройства территории",
+     
+      startDate: "30.05.2024",
+      endDate: "16.06.2024",
+      progress: "100"
+    },
+    {
+      name: "Устройство покрытия асфальтобетонного пешеходной дорожки в рамках благоустройства территории",
+      
+      startDate: "16.06.2024",
+      endDate: "29.06.2024",
+      progress: "100"
+    },
+    {
+      name: "Замена покрытия из резиновой крошки детской площадки в рамках благоустройства территории",
+      
+      startDate: "29.06.2024",
+      endDate: "26.07.2024",
+      progress: "100"
+    },
+    {
+      name: "Замена ограждения контейнерной площадки в рамках благоустройства территории",
+      
+      startDate: "26.07.2024",
+      endDate: "25.08.2024",
+      progress: "100"
+    }
+  ]
+},
+    {
+  id: 4,
+  name: "Дворовая территория по адресу: Бестужевых ул. 27А",
+  status: "Завершен",
+  year: 2024,
+  district: "СВАО",
+  performer: "АД",
+  responsible: "Иванова Н.А.",
+  startDate: "15.04.2024",
+  endDate: "25.08.2024",
+  progress: "100",
+  _children: [
+    {
+      name: "Ремонт покрытия асфальтобетонного проезда в рамках благоустройства территории",
+     
+      startDate: "15.04.2024",
+      endDate: "21.05.2024",
+      progress: "100"
+    },
+    {
+      name: "Устройство покрытия асфальтобетонного проезда в рамках благоустройства территории",
+    
+      startDate: "21.05.2024",
+      endDate: "05.06.2024",
+      progress: "100"
+    },
+    {
+      name: "Ремонт покрытия асфальтобетонного тротуара в рамках благоустройства территории",
+      
+      startDate: "05.06.2024",
+      endDate: "25.06.2024",
+      progress: "100"
+    },
+    {
+      name: "Замена дорожного бортового камня в рамках благоустройства территории",
+     
+      startDate: "25.06.2024",
+      endDate: "12.07.2024",
+      progress: "100"
+    },
+    {
+      name: "Устройство дорожного бортового камня в рамках благоустройства территории",
+     
+      startDate: "12.07.2024",
+      endDate: "25.08.2024",
+      progress: "100"
+    }
+  ]
+},
+{
+  id: 5,
+  name: "Дворовая территория по адресу: Челобитьевское шоссе 14 к.3, 14 к.4, 14 к.5",
+  status: "Завершен",
+  year: 2024,
+  district: "СВАО",
+  performer: "АД",
+  responsible: "Кузнецов А.В.",
+  startDate: "15.04.2024",
+  endDate: "20.08.2024",
+  progress: "100",
+  _children: [
+    {
+      name: "Замена ограждения контейнерной площадки в рамках благоустройства территории",
+      
+      startDate: "15.04.2024",
+      endDate: "23.04.2024",
+      progress: "100"
+    },
+    {
+      name: "ОБУСТРОЙСТВО МАФ ТЕРРИТОРИЙ",
+    
+      startDate: "23.04.2024",
+      endDate: "05.06.2024",
+      progress: "100"
+    },
+    {
+      name: "Замена дорожного бортового камня в рамках благоустройства территории",
+     
+      startDate: "05.06.2024",
+      endDate: "21.06.2024",
+      progress: "100"
+    },
+    {
+      name: "Устройство покрытия асфальтобетонного пешеходной дорожки в рамках благоустройства территории",
+    
+      startDate: "21.06.2024",
+      endDate: "20.08.2024",
+      progress: "100"
+    }
+  ]
+},
+{
+  id: 6,
+  name: "Дворовая территория по адресу: Мира просп. 194",
+  status: "Завершен",
+  year: 2024,
+  district: "СВАО",
+  performer: "АД",
+  responsible: "Фёдоров М.Г.",
+  startDate: "15.04.2024",
+  endDate: "20.08.2024",
+  progress: "100",
+  _children: [
+    {
+      name: "Устройство садового бортового камня в рамках благоустройства территории",
+     
+      startDate: "15.04.2024",
+      endDate: "21.04.2024",
+      progress: "100"
+    },
+    {
+      name: "Ремонт покрытия асфальтобетонного автопарковки в рамках благоустройства территории",
+     
+      startDate: "21.04.2024",
+      endDate: "03.06.2024",
+      progress: "100"
+    },
+    {
+      name: "Ремонт покрытия асфальтобетонного тротуара в рамках благоустройства территории",
+      
+      startDate: "03.06.2024",
+      endDate: "18.06.2024",
+      progress: "100"
+    },
+    {
+      name: "Ремонт покрытия асфальтобетонного проезда в рамках благоустройства территории",
+     
+      startDate: "18.06.2024",
+      endDate: "17.07.2024",
+      progress: "100"
+    },
+    {
+      name: "Замена дорожного бортового камня в рамках благоустройства территории",
+     
+      startDate: "17.07.2024",
+      endDate: "20.08.2024",
+      progress: "100"
+    }
+  ]
+}
+]
+;
+
+  const documentsData = [
+    {
+      name: "📄 Реестр приложений к акту",
+      objectId: "1004466",
+      docType: "Реестр",
+      docNumber: "б/н",
+      uploadDate: "22.09.2024",
+      pageCount: 2,
+      sheetNum: 566
+    },
+    {
+      name: "📄 Сертификат качества (газон)",
+      objectId: "1004466",
+      docType: "Сертификат",
+      docNumber: "829413ГТ",
+      uploadDate: "03.10.2019",
+      pageCount: 2,
+      sheetNum: 568
+    }
+  ];
+  
+
+
+  const tableObjects = new Tabulator("#table-objects", {
+    data: objectData,
+    layout: "fitColumns",
+    placeholder: "Нет данных",
+    height: 655,
+    dataTree: true,
+    dataTreeChildField: "_children",
+    dataTreeStartExpanded: false,
+ dataTreeCollapseElement: "<span style='margin-right: 3px; color: #888;'>▼</span>",
+  dataTreeExpandElement: "<span style='margin-right: 3px; color: #888;'>▶</span>",
+
+    columns: [
+      { title: "Наименование", field: "name", widthGrow: 2 },
+      { title: "Год", field: "year" },
+      { title: "Округ", field: "district" },
+      { title: "Исполнитель", field: "performer" },
+      { title: "Ответственный", field: "responsible" },
+      { title: "Начало", field: "startDate" },
+      { title: "Окончание", field: "endDate" },
+      { title: "% Завершения", field: "progress" }
+    ]
+  });
+
+const objectsWithDocuments = [
+  {
+    name: "Дворовая территория по адресу: Путевой пр. 38",
+    documents: [
+      {
+        name: "АОСР на Демонтаж бортового камня",
+        workType: "Ремонт покрытия асфальтобетонного проезда в рамках благоустройства территории",
+          contractNumber: "ОУ3/ОТ1",
+        number: "3.1/18/1",
+        date: "31.05.2024",
+        pages: 1
+      },
+      {
+        name: "АОСР на Срезку слоя АБ покрытия методом холодного фрезерования",
+           workType: "Ремонт покрытия асфальтобетонного тротуара в рамках благоустройства территории",
+          contractNumber: "№ ЭМ-39/18-У",
+        number: "1.1/18/1",
+        date: "31.05.2024",
+        pages: 1
+      },
+      {
+        name: "АОСР на Срезку слоя АБ покрытия методом холодного фрезерования",
+           workType: "Устройство дорожного бортового камня в рамках благоустройства территории",
+          contractNumber: "15801-УР-19 3/6450-19",
+        number: "2.1/18/1",
+        date: "31.05.2024",
+        pages: 1
+      }
+    ]
+  },
+  {
+    name: "Дворовая территория по адресу: Флотская ул. 54, 58 к.1",
+    documents: [
+      {
+        name: "АОСР на Срезку слоя АБ покрытия методом холодного фрезерования",
+            workType: "Ремонт покрытия асфальтобетонного тротуара в рамках благоустройства территории",
+                  contractNumber: "34/19",
+        number: "2.7/18/1",
+        date: "31.05.2024",
+        pages: 1
+      },
+      {
+        name: "АОСР на устройство оснований АБ покрытия",
+            workType: "Замена дорожного бортового камня в рамках благоустройства территории",
+                  contractNumber: "50220-1784/11819",
+        number: "б/н",
+        date: "31.05.2024",
+        pages: 15
+      }
+    ]
+  },
+  {
+    name: "Дворовая территория по адресу: Каргопольская ул. 18",
+    documents: [
+      {
+        name: "Приказ",
+          workType: "Устройство садового бортового камня в рамках благоустройства территории",
+                  contractNumber: "1502-123-2020",
+        number: "710",
+        date: "29.12.2023",
+        pages: 16
+      },
+      {
+        name: "Приказ",
+          workType: "Ремонт газона в рамках благоустройства территории",
+                  contractNumber: "ИГ-14460/1783",
+        number: "10/04/24-АД",
+        date: "10.04.2024",
+        pages: 1
+      }
+    ]
+  },
+  {
+    name: "Дворовая территория по адресу: Бестужевых ул. 27А",
+    documents: [
+      {
+        name: "АОСР на Демонтаж бортового камня",
+         workType: "Ремонт покрытия асфальтобетонного проезда в рамках благоустройства территории",
+                  contractNumber: "13464-ОМТО-20",
+        number: "3.7/18/1",
+        date: "31.05.2024",
+        pages: 1
+      },
+      {
+        name: "АОСР на Демонтаж бортового камня",
+         workType: "Ремонт покрытия асфальтобетонного тротуара в рамках благоустройства территории",
+                  contractNumber: "21000001",
+        number: "3.14/18/1",
+        date: "31.05.2024",
+        pages: 1
+      }
+    ]
+  },
+  {
+    name: "Дворовая территория по адресу: Челобитьевское шоссе 14 к.3, 14 к.4, 14 к.5",
+    documents: [
+      {
+        name: "АОСР на Срезку асфальтобетонных покрытий методом фрезерования",
+               workType: "Замена ограждения контейнерной площадки в рамках благоустройства территории",
+                  contractNumber: "10/03-10",
+        number: "2.14/18/1",
+        date: "31.05.2024",
+        pages: 1
+      },
+      {
+        name: "Исполнительная схема на устройство асфальтобетонного покрытия",
+               workType: "ОБУСТРОЙСТВО МАФ ТЕРРИТОРИЙ",
+                  contractNumber: "510-ОРКИС-21",
+        number: "б/н",
+        date: "31.05.2024",
+        pages: 15
+      }
+    ]
+  },
+  {
+    name: "Дворовая территория по адресу: Мира просп. 194",
+    documents: [
+      {
+        name: "Приказ",
+                   workType: "Ремонт покрытия асфальтобетонного автопарковки в рамках благоустройства территории",
+                  contractNumber: "21000049",
+        number: "20240709-01",
+        date: "09.07.2024",
+        pages: 1
+      },
+      {
+        name: "Приказ",
+                   workType: "Замена дорожного бортового камня в рамках благоустройства территории",
+                  contractNumber: "2945-АТР-21",
+        number: "2",
+        date: "24.04.2024",
+        pages: 1
+      }
+    ]
+  }
+];
+
+
+  // Вкладки
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".tab-section").forEach(s => s.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById(btn.dataset.tab).classList.add("active");
+    });
+  });
+
+ const documentsDataFromObjects = objectsWithDocuments.flatMap(obj =>
+  obj.documents.map(doc => ({
+    name: doc.name,
+      workType: doc.workType,
+     contractNumber: doc.contractNumber || "",
+    docNumber: doc.number,
+    uploadDate: doc.date,
+    pageCount: doc.pages,
+    objectName: obj.name
+  }))
+);
+
+// Функция для склонения слова "документ"
+function pluralizeDocs(count) {
+  if (count % 10 === 1 && count % 100 !== 11) return "документ";
+  if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) return "документа";
+  return "документов";
+}
+
+const documentColumns = [
+  { title: "Наименование", field: "name", widthGrow: 2 },
+  { title: "Вид работ", field: "workType" },
+   { title: "Номер контракта", field: "contractNumber" },
+  { title: "Номер документа", field: "docNumber" },
+  { title: "Дата", field: "uploadDate" },
+  { title: "Кол-во листов", field: "pageCount" }
+];
+
+const tableDocuments = new Tabulator("#table-documents", {
+  data: documentsDataFromObjects,
+  layout: "fitColumns",
+  height: 655,
+  placeholder: "Нет документов",
+  columns: documentColumns,
+  groupBy: "objectName",
+  groupStartOpen: false,
+  groupToggleElement: "header",
+groupHeader: function (value, count) {
+  return `<span style="margin-left: 4px; color:#000; font-weight: normal;">
+    ${value} (${count} ${pluralizeDocs(count)})
+  </span>`;
+}
+
+});
+// 🔍 Фильтрация таблицы документов
+document.getElementById("filter-doc-name").addEventListener("input", e => {
+  tableDocuments.setFilter("name", "like", e.target.value);
+});
+
+document.getElementById("filter-doc-number").addEventListener("input", e => {
+  tableDocuments.setFilter("docNumber", "like", e.target.value);
+});
+
+document.getElementById("filter-doc-date").addEventListener("input", e => {
+  tableDocuments.setFilter("uploadDate", "like", e.target.value);
+});
+
+
+// 📌 Фильтры для вкладки "Реестр объектов"
+document.getElementById("filter-name").addEventListener("input", function () {
+  tableObjects.setFilter("name", "like", this.value);
+});
+document.getElementById("filter-district").addEventListener("input", function () {
+  tableObjects.setFilter("district", "like", this.value);
+});
+document.getElementById("filter-performer").addEventListener("input", function () {
+  tableObjects.setFilter("performer", "like", this.value);
+});
+document.getElementById("filter-year").addEventListener("input", function () {
+  tableObjects.setFilter("year", "like", this.value);
+});
+document.getElementById("filter-responsible").addEventListener("input", function () {
+  tableObjects.setFilter("responsible", "like", this.value);
+});
+document.getElementById("filter-start").addEventListener("input", function () {
+  tableObjects.setFilter("startDate", "like", this.value);
+});
+document.getElementById("filter-end").addEventListener("input", function () {
+  tableObjects.setFilter("endDate", "like", this.value);
+});
+
+document.getElementById("filter-doc-contract").addEventListener("input", e => {
+  tableDocuments.setFilter("contractNumber", "like", e.target.value);
+});
+
+
+
+
+
+document.getElementById("exportExcelBtn").addEventListener("click", function () {
+ 
+
+
+
+
+  
+  
+const wb = XLSX.utils.book_new();
+
+  // === Объекты с подработами ===
+  const rawObjects = tableObjects.getData(true); // ✅ получить с детьми
+
+  const flatObjects = [];
+
+  rawObjects.forEach(obj => {
+    // Родитель
+    flatObjects.push({
+      "Наименование": obj.name,
+      "Год": obj.year,
+      "Округ": obj.district,
+      "Исполнитель": obj.performer,
+      "Ответственный": obj.responsible,
+      "Начало": obj.startDate,
+      "Окончание": obj.endDate,
+      "% Завершения": obj.progress,
+      "Тип": "Объект"
+    });
+
+    // Дети
+    if (Array.isArray(obj._children)) {
+      obj._children.forEach(child => {
+        flatObjects.push({
+          "Наименование": "↳ " + child.name,
+          "Год": "",
+          "Округ": "",
+          "Исполнитель": "",
+          "Ответственный": "",
+          "Начало": child.startDate,
+          "Окончание": child.endDate,
+          "% Завершения": child.progress,
+          "Тип": "Работа"
+        });
+      });
+    }
+  });
+
+  const objectSheet = XLSX.utils.json_to_sheet(flatObjects);
+  XLSX.utils.book_append_sheet(wb, objectSheet, "Объекты");
+
+  // === Документы ===
+  const flatDocs = documentsDataFromObjects.map(doc => ({
+    "Объект": doc.objectName,
+    "Наименование документа": doc.name,
+    "Вид работ": doc.workType,
+    "Номер контракта": doc.contractNumber || "",
+    "Номер документа": doc.docNumber,
+    "Дата": doc.uploadDate,
+    "Кол-во листов": doc.pageCount
+  }));
+
+  const documentSheet = XLSX.utils.json_to_sheet(flatDocs);
+  XLSX.utils.book_append_sheet(wb, documentSheet, "Документы");
+
+  // === Сохранение
+  XLSX.writeFile(wb, "Журналы.xlsx");
+});
+
+
+  
+// === Переключение темы (светлая/тёмная) ===
+const themeToggleBtn = document.getElementById("themeToggle");
+const html = document.documentElement;
+
+// Загружаем сохранённую тему, если есть
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  html.setAttribute("data-theme", savedTheme);
+}
+
+// Обработка клика
+themeToggleBtn.addEventListener("click", () => {
+  const current = html.getAttribute("data-theme");
+  const newTheme = current === "dark" ? "light" : "dark";
+  html.setAttribute("data-theme", newTheme);
+  localStorage.setItem("theme", newTheme); // сохраняем
+});
+
+
+  
+</script>
+</body>
+</html>

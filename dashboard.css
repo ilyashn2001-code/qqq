@@ -28,33 +28,96 @@
 }
 
 /* === ОБЩИЕ СТИЛИ === */
-#dashboard * {
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
 }
-#dashboard {
+html, body {
+  height: 100%;
   background: var(--bg-color);
   color: var(--text-color);
   transition: background 0.3s ease, color 0.3s ease;
+}
+body {
   font-size: 14px;
   min-height: 100vh;
+}
+.app-container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* === САЙДБАР === */
+.sidebar {
+  width: 220px;
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  padding: 30px 20px;
   display: flex;
   flex-direction: column;
+}
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+.sidebar ul {
+  list-style: none;
+}
+.sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  padding: 6px 14px;
+  cursor: pointer;
+  opacity: 0.85;
+  border-radius: 4px;
+}
+.sidebar li i {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  opacity: 0.9;
+}
+.sidebar li.active {
+  background-color: var(--sidebar-active-bg);
+  font-weight: bold;
+  opacity: 1;
+  position: relative;
+}
+.sidebar li.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 4px; height: 100%;
+  background-color: var(--accent);
+  border-radius: 4px 0 0 4px;
+}
+
+/* === ОСНОВНАЯ ОБЛАСТЬ === */
+.main {
+  flex: 1;
   padding: 30px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* === ШАПКА === */
-#dashboard .header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
-#dashboard .header h1 {
+.header h1 {
   font-size: 28px;
   font-weight: 600;
 }
-#dashboard .theme-toggle {
+.theme-toggle {
   background: none;
   border: none;
   font-size: 18px;
@@ -63,14 +126,14 @@
 }
 
 /* === ФИЛЬТРЫ === */
-#dashboard .filters {
+.filters {
   margin: 20px 0;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
-#dashboard .filters input,
-#dashboard .filters select {
+.filters input,
+.filters select {
   padding: 10px 12px;
   font-size: 14px;
   border: 1px solid black;
@@ -79,16 +142,16 @@
   color: black;
   transition: border 0.2s ease;
 }
-#dashboard .filters input::placeholder {
+.filters input::placeholder {
   color: #555 !important;
   opacity: 1;
 }
-#dashboard .filters input:hover,
-#dashboard .filters select:hover {
+.filters input:hover,
+.filters select:hover {
   border: 2px solid black;
   background-color: var(--input-bg);
 }
-#dashboard .filters select {
+.filters select {
   color: #555;
   background-image: url("data:image/svg+xml,%3Csvg width='8' height='5' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 6L0.5 0.5H9.5L5 6Z' fill='%23555'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -97,35 +160,44 @@
   padding-right: 28px;
   appearance: none;
 }
-
-/* === ИНДИВИДУАЛЬНЫЕ ШИРИНЫ === */
-#dashboardDistrictFilter { width: 90px; }
-#dashboardTypeFilter { width: 150px; }
-#dashboardDateStart { width: 150px; }
-#dashboardDateEnd { width: 140px; }
-#dashboardFilterArea,
-#dashboardFilterCustomer,
-#dashboardFilterContractor,
-#dashboardStatusObject,
-#dashboardYear {
-  min-width: 180px;
+.filters input[type="text"] {
+  appearance: none;
+  background-image: none !important;
+  padding-right: 12px;
 }
 
-/* === ОБЛАСТЬ ДЛЯ ГРАФИКОВ И КАРТОЧЕК === */
-#dashboard .dashboard-body {
+/* === ИНДИВИДУАЛЬНЫЕ ШИРИНЫ === */
+#districtFilter { width: 90px; }
+#typeFilter { width: 150px; }
+#dateStartFilter { width: 150px; }
+#dateEndFilter { width: 140px; }
+#fioFilter { width: 150px; }
+#violationFilter { width: 120px; }
+#searchInput {
+  flex: 1;
+  min-width: 260px;
+}
+
+/* === БАЗОВАЯ ОБЛАСТЬ ДЛЯ ГРАФИКОВ И КАРТОЧЕК === */
+.dashboard-body {
   display: flex;
   flex-direction: column;
   gap: 30px;
+}
+.dashboard-body {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
-#dashboard .kpi-cards {
+.kpi-cards {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
 }
 
-#dashboard .kpi-card {
+.kpi-card {
   flex: 1;
   min-width: 200px;
   background-color: #fff;
@@ -134,85 +206,251 @@
   box-shadow: 0 0 5px rgba(0,0,0,0.05);
   text-align: center;
 }
-#dashboard .kpi-card h3 {
+
+.kpi-card h3 {
   margin-bottom: 10px;
   font-size: 16px;
   color: #666;
 }
-#dashboard .kpi-card p {
+
+.kpi-card p {
   font-size: 22px;
   font-weight: bold;
   color: #333;
 }
 
-#dashboard .chart-section {
+.chart-section {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0,0,0,0.05);
 }
 
-#dashboard .triple-charts {
+.metrics-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.metric-card {
+  flex: 1;
+  min-width: 180px;
+  background: #f9fafc;
+  border-left: 5px solid #3f8cff;
+  padding: 15px 20px;
+  border-radius: 6px;
+}
+
+.metric-label {
+  display: block;
+  color: #888;
+  font-size: 14px;
+}
+
+.metric-card span:last-child {
+  font-size: 18px;
+  font-weight: bold;
+  color: #222;
+}
+
+.rating-section {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.rating-block {
+  flex: 1;
+  min-width: 250px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+.rating-block h4 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #444;
+}
+
+.rating-block ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.rating-block li {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+.metric-card {
+  background-color: #f5f7fa;
+  border: 1px solid #d1d5db;
+  border-left: 4px solid #3b82f6; /* Синяя полоса */
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-family: 'Montserrat', sans-serif;
+  flex: 1;
+}
+
+.metric-card span.metric-label {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.metric-card span#metric-ready,
+.metric-card span#metric-checks,
+.metric-card span#metric-violations,
+.metric-card span#metric-photos {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+}
+.triple-charts {
   display: flex;
   justify-content: space-between;
   gap: 20px;
 }
-#dashboard .chart-card {
+
+.chart-card {
   flex: 1;
   background: var(--bg-secondary, #f9f9f9);
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0 0 4px rgba(0,0,0,0.05);
 }
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+.filters select,
+.filters input {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+/* Увеличенные селекты */
+#filter-area,
+#filter-customer,
+#filter-contractor,
+#filter-status-object,
+#filter-year {
+  min-width: 180px; /* или больше — подбери по макету */
+}
+/* --- 📌 Новый стиль для фильтров в одну строку --- */
+.filters {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 10px;
+  margin: 15px 0;
+}
 
-#dashboard .kpi-container {
+.filters select,
+.filters input {
+  display: inline-block;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Сделаем фиксированную ширину для округов и районов */
+#districtFilter,
+#filter-area {
+  width: 90px;
+  min-width: 90px;
+  max-width: 90px;
+}
+.kpi-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
-#dashboard .kpi-card {
-  background: #ffffff;
+
+.kpi-card {
+  background: #ffffff; /* белый фон */
   border-radius: 8px;
   padding: 16px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  border: 1px solid #ddd;
-  border-left: 6px solid #1e90ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #ddd; /* тонкая окантовка */
+  border-left: 6px solid #1e90ff; /* синяя полоска слева */
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-#dashboard .kpi-card:hover {
+
+.kpi-card:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
-#dashboard .kpi-title {
+
+.kpi-title {
   font-size: 14px;
   color: #333;
   margin-bottom: 8px;
 }
-#dashboard .kpi-value {
+
+.kpi-value {
   font-size: 20px;
   font-weight: bold;
   color: #000;
 }
 
-#dashboard .rating-section {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
+.filters input,
+.filters select {
+  background-color: #ffffff !important; /* всегда белый фон */
+  color: #333333 !important;           /* тёмно-серый текст */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
-#dashboard .rating-block {
-  flex: 1;
-  min-width: 250px;
-  background: #ffffff !important;
-  color: #1e2a3a !important;
+
+/* placeholder у input */
+.filters input::placeholder {
+  color: #555555 !important;
+  opacity: 1;
+}
+
+/* hover эффект */
+.filters input:hover,
+.filters select:hover {
+  border: 1px solid var(--accent);
+  background-color: #ffffff !important;
+  color: #333333 !important;
+}
+
+/* стрелочка у select (серая) */
+.filters select {
+  background-image: url("data:image/svg+xml,%3Csvg width='8' height='5' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 6L0.5 0.5H9.5L5 6Z' fill='%23333'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 8px;
+  padding-right: 28px;
+  appearance: none;
+}
+
+.rating-block {
+  background: #ffffff !important; /* всегда белый фон */
+  color: #1e2a3a !important;      /* всегда тёмный текст */
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 0 5px rgba(0,0,0,0.05);
 }
-#dashboard .rating-block h4 {
-  color: #333333 !important;
+
+.rating-block h4 {
+  color: #333333 !important; /* тёмно-серый заголовок */
 }
-#dashboard .rating-block li {
-  color: #444444 !important;
+
+.rating-block li {
+  color: #444444 !important; /* текст внутри всегда тёмный */
   border-bottom: 1px solid #eee;
-  font-size: 14px;
 }
